@@ -1,0 +1,106 @@
+import { StyleSheet } from "react-native";
+
+import EditScreenInfo from "@/components/EditScreenInfo";
+import { Text, View, ScrollView } from "@/components/core/Themed";
+import Colors from "@/constants/Colors";
+import { GhostLink } from "@/components/core/buttons";
+import { Stack } from "expo-router";
+import { Pressable } from "react-native";
+
+export default function Screen() {
+  return (
+    <ScrollView>
+      <Stack.Screen
+        options={{
+          // comment for better diffs
+          title: "@username",
+        }}
+      />
+
+      <View>
+        <View style={balance.container}>
+          <Text
+            style={balance.label}
+            darkColor={Colors.dark.minorColor}
+            lightColor={Colors.light.minorColor}
+          >
+            Balance
+          </Text>
+
+          <Text style={balance.amount}>$46.19</Text>
+        </View>
+
+        <PrimaryActionButtons />
+      </View>
+
+      <View
+        style={styles.separator}
+        lightColor="#eee"
+        darkColor="rgba(255,255,255,0.1)"
+      />
+
+      <View className="flex flex-row items-center justify-center my-8">
+        <GhostLink href="/wallet/import" label="Import" />
+        <GhostLink href="/wallet/generate" replace label="Generate" />
+      </View>
+      {/* <Pressable className="">
+        <View></View>
+      </View> */}
+
+      <EditScreenInfo path="app/(tabs)/index.tsx" />
+    </ScrollView>
+  );
+}
+
+function PrimaryActionButtons() {
+  return (
+    <View className="flex flex-row items-center justify-center">
+      <GhostLink href="/send" label="Send" icon="arrow-up" />
+      <GhostLink href="/request" label="Request" icon="arrow-down" />
+      {/* <GhostLink href="/swap" label="Swap" icon="arrows-h" /> */}
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    // backgroundColor: "red",
+    // minHeight: "100%",
+    // flex: 1,
+    // alignItems: "baseline",
+    // alignItems: "center",
+    // justifyContent: "center",
+    // padding: 16,
+    // gap: 8,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+  },
+  separator: {
+    marginVertical: 30,
+    height: 1,
+    width: "80%",
+    alignSelf: "center",
+  },
+});
+
+const balance = StyleSheet.create({
+  container: {
+    alignItems: "center",
+    padding: 16,
+    gap: 4,
+  },
+  label: {
+    fontSize: 16,
+    fontWeight: "400",
+  },
+  amount: {
+    fontSize: 48,
+    fontWeight: "bold",
+  },
+  text: {
+    fontSize: 16,
+    fontWeight: "500",
+  },
+});
