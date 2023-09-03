@@ -101,19 +101,14 @@ export default function RequestScreen() {
           />
         </View>
 
-        {/* <TouchableOpacity
-        onPress={() => Alert.alert("derp")}
-        className="items-center w-full px-4 py-2 text-center bg-blue-500 rounded-lg"
-      >
-        <Text className="text-xl text-white">Share via Link</Text>
-      </TouchableOpacity> */}
-
-        <Button
-          label="Share with a link"
-          onPress={() => Alert.alert("derp1")}
-          className="w-full bg-blue-500"
-          labelClassName="text-white"
-        />
+        <View className="flex flex-col w-full gap-2">
+          <Button
+            label="Share with a link"
+            onPress={() => Alert.alert("derp1")}
+            className="w-full bg-blue-500"
+            labelClassName="text-white"
+          />
+        </View>
       </View>
     </ScrollView>
   );

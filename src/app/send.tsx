@@ -61,12 +61,14 @@ export default function Screen() {
           />
         </View>
 
-        <Button
-          label="Send"
-          onPress={() => Alert.alert("derp1")}
-          className="w-full bg-blue-500"
-          labelClassName="text-white"
-        />
+        <View className="flex flex-col w-full gap-2">
+          <Button
+            label="Send"
+            onPress={() => Alert.alert("derp1")}
+            className="w-full bg-blue-500"
+            labelClassName="text-white"
+          />
+        </View>
       </View>
     </ScrollView>
   );

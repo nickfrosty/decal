@@ -67,7 +67,7 @@ export default function TransactionDetailsScreen() {
           labelClassName="text-white"
         />
 
-        <View className="flex flex-row flex-grow gap-2">
+        <View className="flex flex-col w-full gap-2">
           <Button
             label="Open on Explorer"
             onPress={() => Alert.alert("explorer")}
@@ -75,12 +75,6 @@ export default function TransactionDetailsScreen() {
             labelClassName="text-black text-base"
             icon="external-link"
           />
-          {/* <Button
-            onPress={() => Alert.alert("copy signature")}
-            className="bg-transparent border-gray-300"
-            labelClassName="text-black text-base"
-            icon={"copy"}
-          /> */}
         </View>
       </View>
     </ScrollView>
