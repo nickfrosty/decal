@@ -5,6 +5,7 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { ScrollView, Text, View } from "@/components/core/Themed";
 import Colors from "@/constants/Colors";
 import { Button } from "@/components/core/buttons";
+import { ChevronUpDownIcon } from "react-native-heroicons/solid";
 
 export default function Screen() {
   return (
@@ -21,8 +22,8 @@ export default function Screen() {
           <View className="flex flex-row items-center space-x-2 align-middle">
             <View className="bg-gray-400 rounded-full w-9 h-9"></View>
             {/* <Text className="inline-flex text-lg font-semibold">
-            12.12 USDC
-          </Text> */}
+              12.12 USDC
+            </Text> */}
 
             <View className="flex flex-row gap-1 bg-transparent">
               <Text className="inline-flex text-lg font-semibold">12.12</Text>
@@ -32,19 +33,7 @@ export default function Screen() {
             </View>
           </View>
 
-          {/* <View className="flex flex-row gap-1 bg-transparent">
-          <Text className="inline-flex text-lg font-semibold text-gray-500">
-            ~
-          </Text>
-          <Text className="inline-flex text-lg font-semibold text-gray-500">
-            12.12
-          </Text>
-          <Text className="inline-flex text-lg font-semibold text-gray-500">
-            USDC
-          </Text>
-        </View> */}
-
-          <FontAwesome className="w-4 h-4 border" size={18} name="caret-down" />
+          <ChevronUpDownIcon className="w-4 h-4" size={26} color={"black"} />
         </View>
 
         <View style={styles.inputBlock}>

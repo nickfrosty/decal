@@ -1,6 +1,5 @@
 import { Stack } from "expo-router";
 import { Alert, Pressable, StyleSheet, TextInput } from "react-native";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
 
 import { Text, View, ScrollView } from "@/components/core/Themed";
 import { encodeURL } from "@solana/pay";
@@ -8,6 +7,7 @@ import Colors from "@/constants/Colors";
 import { PublicKey } from "@solana/web3.js";
 import QRCode from "react-native-qrcode-svg";
 import { Button } from "@/components/core/buttons";
+import { ChevronUpDownIcon } from "react-native-heroicons/solid";
 
 const QR_CODE_SIZE = 200;
 
@@ -36,17 +36,6 @@ export default function RequestScreen() {
           options={{ title: "Request Payment" }}
         />
 
-        {/* <View className="flex flex-row items-center justify-between w-full px-4 py-3 space-x-4 bg-transparent border border-gray-300 rounded-lg">
-        <View className="flex flex-row items-center space-x-2 align-middle">
-          <View className="bg-gray-400 rounded-full w-9 h-9"></View>
-          <Text className="inline-flex">
-            {address}
-          </Text>
-        </View>
-
-        <FontAwesome className="w-4 h-4 border" size={18} name="copy" />
-      </View> */}
-
         <Pressable
           onPress={() => Alert.alert("copy wallet address")}
           className="p-4 m-4 border border-gray-300 rounded-xl"
@@ -63,19 +52,7 @@ export default function RequestScreen() {
             <Text className="inline-flex text-lg font-semibold">USDC</Text>
           </View>
 
-          {/* <View className="flex flex-row gap-1 bg-transparent">
-          <Text className="inline-flex text-lg font-semibold text-gray-500">
-            ~
-          </Text>
-          <Text className="inline-flex text-lg font-semibold text-gray-500">
-            12.12
-          </Text>
-          <Text className="inline-flex text-lg font-semibold text-gray-500">
-            USDC
-          </Text>
-        </View> */}
-
-          <FontAwesome className="w-4 h-4 border" size={18} name="caret-down" />
+          <ChevronUpDownIcon className="w-4 h-4" size={26} color={"black"} />
         </View>
 
         <View style={styles.inputBlock}>
@@ -103,7 +80,7 @@ export default function RequestScreen() {
 
         <View className="flex flex-col w-full gap-2">
           <Button
-            label="Share with a link"
+            label="Create a payment link"
             onPress={() => Alert.alert("derp1")}
             className="w-full bg-blue-500"
             labelClassName="text-white"
