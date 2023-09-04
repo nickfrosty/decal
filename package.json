@@ -1,7 +1,7 @@
 {
   "name": "decal",
   "main": "expo-router/entry",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "scripts": {
     "dev": "expo start --clear",
     "android": "expo run:android",
