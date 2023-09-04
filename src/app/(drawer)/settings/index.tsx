@@ -21,7 +21,7 @@ export default function Screen() {
 
         <Text
           className="text-base"
-          style={{ color: useThemeColor({}, "minorColor") }}
+          style={{ color: useThemeColor("minorColor") }}
         >
           Developer Settings
         </Text>
@@ -33,7 +33,7 @@ export default function Screen() {
             borderRadius: 8,
             overflow: "hidden",
             borderWidth: 1,
-            borderColor: useThemeColor({}, "borderColor"),
+            borderColor: useThemeColor("borderColor"),
           }}
         >
           <View
@@ -41,8 +41,8 @@ export default function Screen() {
               flexDirection: "row",
               paddingVertical: 12,
               paddingHorizontal: 16,
-              // borderColor: useThemeColor({}, "borderColor"),
-              // backgroundColor: useThemeColor({}, "backgroundColor"),
+              // borderColor: useThemeColor("borderColor"),
+              // backgroundColor: useThemeColor("backgroundColor"),
               gap: 4,
             }}
           >
@@ -87,6 +87,6 @@ const styles = StyleSheet.create({
     // marginHorizontal: 10,
     // marginBottom: 2,
     fontWeight: "500",
-    // color: useThemeColor({}, "minorColor"),
+    // color: useThemeColor("minorColor"),
   },
 });
