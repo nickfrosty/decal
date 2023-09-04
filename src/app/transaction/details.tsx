@@ -1,39 +1,33 @@
 import { Stack } from "expo-router";
-import { Alert, StyleSheet, TextInput, TouchableOpacity } from "react-native";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { Alert, StyleSheet } from "react-native";
 
 import { Text, View, ScrollView } from "@/components/core/Themed";
 import { Button } from "@/components/core/buttons";
 import { List, ListItem } from "@/components/core/lists";
 import { shortText } from "@/lib/utils";
+import { HeroIcon, HeroTitleSection } from "@/components/ScreenHero";
+import { CheckIcon } from "react-native-heroicons/outline";
 
-export default function TransactionDetailsScreen() {
+export default function Screen() {
   return (
     <ScrollView>
       <View style={styles.container}>
         <Stack.Screen
-          // name=""
-          options={{ title: "Transaction Details" }}
+          options={{
+            // comment for better diffs
+            title: "Transaction Details",
+          }}
         />
 
-        <View className="flex items-center justify-center my-4">
-          <View className="items-center justify-center w-20 h-20 align-middle bg-green-500 rounded-full">
-            <FontAwesome
-              className="order-2 w-4 h-4"
-              size={40}
-              color={"white"}
-              name={"check"}
-            />
-          </View>
-        </View>
+        <HeroIcon
+          background="bg-green-500"
+          icon={<CheckIcon size={40} color={"white"} />}
+        />
 
-        <View className="items-center gap-3">
-          <Text className={"font-semibold text-2xl"}>Success</Text>
-
-          <Text className={"text-gray-500"}>
-            This transaction was successful
-          </Text>
-        </View>
+        <HeroTitleSection
+          title={"Success"}
+          description={"This transaction was successful"}
+        />
 
         <List>
           <ListItem

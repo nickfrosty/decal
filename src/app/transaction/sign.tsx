@@ -1,11 +1,11 @@
 import { Stack } from "expo-router";
-import { Alert, StyleSheet, TextInput, TouchableOpacity } from "react-native";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { Alert, StyleSheet } from "react-native";
 
 import { Text, View, ScrollView } from "@/components/core/Themed";
 import { Button } from "@/components/core/buttons";
-import { List, ListItem } from "@/components/core/lists";
 import { MonoText } from "@/components/StyledText";
+import { HeroIcon, HeroTitleSection } from "@/components/ScreenHero";
+import { BoltIcon } from "react-native-heroicons/solid";
 
 export default function Screen() {
   return (
@@ -18,30 +18,18 @@ export default function Screen() {
           }}
         />
 
-        <View className="flex items-center justify-center gap-2 my-4">
-          <View className="items-center justify-center w-20 h-20 align-middle bg-green-500 rounded-full">
-            <FontAwesome
-              className="order-2 w-4 h-4"
-              size={40}
-              color={"white"}
-              name={"bolt"}
-            />
-          </View>
-          <MonoText className={"text-lg text-gray-600 text-center"}>
-            decal.app
-          </MonoText>
-        </View>
+        <HeroIcon
+          background="bg-green-500"
+          icon={<BoltIcon size={40} color={"white"} />}
+          label="decal.app"
+        />
 
-        <View className="items-center gap-3">
-          <Text className={"font-semibold text-2xl text-center"}>
-            You are being asked to sign a message
-          </Text>
-
-          <Text className={"text-gray-500 text-base"}>
-            Message signing is often used to verify ownership of an account, at
-            no cost.
-          </Text>
-        </View>
+        <HeroTitleSection
+          title={"You are being asked to\nsign a message"}
+          description={
+            "Message signing is often used to verify\n ownership of an account, at no cost."
+          }
+        />
 
         <View className="flex flex-row items-center justify-between px-4 py-3 space-x-2 overflow-hidden align-middle bg-gray-100 border border-transparent border-gray-200 rounded-lg">
           <MonoText className={"text-base text-black"}>

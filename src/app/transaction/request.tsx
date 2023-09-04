@@ -1,12 +1,12 @@
 import { Stack } from "expo-router";
-import { Alert, StyleSheet, TextInput, TouchableOpacity } from "react-native";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { Alert, StyleSheet } from "react-native";
 
 import { Text, View, ScrollView } from "@/components/core/Themed";
-import { MonoText } from "@/components/StyledText";
 import { Button } from "@/components/core/buttons";
 import { List, ListItem } from "@/components/core/lists";
 import { shortText } from "@/lib/utils";
+import { HeroIcon, HeroTitleSection } from "@/components/ScreenHero";
+import { QuestionMarkCircleIcon } from "react-native-heroicons/outline";
 
 /**
  * todo: the follow is a general list of todo items
@@ -29,32 +29,22 @@ export default function TransactionRequestScreen() {
     <ScrollView>
       <View style={styles.container}>
         <Stack.Screen
-          // name=""
-          options={{ title: "Transaction Request" }}
+          options={{
+            // comment for better diffs
+            title: "Transaction Request",
+          }}
         />
 
-        <View className="flex items-center justify-center gap-2 my-4">
-          <View className="items-center justify-center w-20 h-20 align-middle bg-gray-300 rounded-full">
-            <FontAwesome
-              className="order-2 w-4 h-4"
-              size={40}
-              color={"white"}
-              name={"question"}
-            />
-          </View>
+        <HeroIcon
+          background="bg-gray-300"
+          icon={<QuestionMarkCircleIcon size={40} color={"white"} />}
+          label="decal.app"
+        />
 
-          <MonoText className={"text-lg text-gray-600 text-center lowercase"}>
-            decal.app
-          </MonoText>
-        </View>
-
-        <View className="items-center gap-3">
-          <Text className={"font-semibold text-2xl"}>Transaction Request</Text>
-
-          <Text className={"text-gray-500"}>
-            You are being asked to approve a transaction
-          </Text>
-        </View>
+        <HeroTitleSection
+          title={"Transaction Request"}
+          description={"You are being asked to approve a transaction"}
+        />
 
         {/* simple transaction details */}
         <List>
