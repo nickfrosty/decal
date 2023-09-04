@@ -10,6 +10,7 @@ export default {
     tabIconSelected: tintColorLight,
     borderColor: "#ddd",
     minorColor: "#777",
+    iconColor: "black",
   },
   dark: {
     text: "#fff",
@@ -19,5 +20,6 @@ export default {
     tabIconSelected: tintColorDark,
     borderColor: "#222",
     minorColor: "#888",
+    iconColor: "white",
   },
 };

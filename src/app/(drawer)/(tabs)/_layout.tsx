@@ -1,8 +1,8 @@
 import { Link, Tabs } from "expo-router";
-import { Pressable, useColorScheme } from "react-native";
+import { Pressable, useColorScheme, StyleSheet } from "react-native";
 
 import Colors from "@/constants/Colors";
-import { View } from "@/components/core/Themed";
+import { DrawerToggleButton, View } from "@/components/core/Themed";
 
 import {
   WalletIcon,
@@ -18,7 +18,6 @@ import {
   UserCircleIcon,
   WrenchScrewdriverIcon,
 } from "react-native-heroicons/outline";
-import { DrawerToggleButton } from "@react-navigation/drawer";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
