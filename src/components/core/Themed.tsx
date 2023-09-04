@@ -79,20 +79,19 @@ export function DrawerToggleButton({}) {
 
   return (
     <Bars3Icon
-      size={28}
       color={useThemeColor("iconColor")}
-      style={styles.icon}
+      style={HeaderStyles.icon}
       onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}
     />
   );
 }
 
-const styles = StyleSheet.create({
+export const HeaderStyles = StyleSheet.create({
   icon: {
     height: 28,
     width: 28,
     margin: 3,
     resizeMode: "contain",
-    marginHorizontal: 11,
+    marginHorizontal: 12,
   },
 });
