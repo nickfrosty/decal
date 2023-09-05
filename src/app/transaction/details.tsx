@@ -31,16 +31,12 @@ export default function Screen() {
 
         <List>
           <ListItem
+            isTopItem={true}
             title="Date"
             value={new Date().toLocaleString()}
-            className="border-b-gray-200"
           />
           {/* <ListItem title="Status" value={"success"} /> */}
-          <ListItem
-            title="Network fee"
-            value={"< 0.00001 SOL"}
-            className="border-b-gray-200"
-          />
+          <ListItem title="Network fee" value={"< 0.00001 SOL"} />
           <ListItem
             title="ID"
             value={shortText(
