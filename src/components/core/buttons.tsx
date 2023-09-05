@@ -2,7 +2,7 @@ import clsx from "clsx";
 import { Link, LinkProps as DefaultLinkProps } from "expo-router";
 
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { Text } from "@/components/core/Themed";
+import { Text, useThemeColor } from "@/components/core/Themed";
 import {
   TouchableOpacity,
   TouchableOpacityProps,
@@ -37,16 +37,22 @@ export function Button({ icon, label, labelClassName, ...props }: ButtonProps) {
   );
 }
 
-export function LinkButton({ href, icon, label, style }: LinkProps) {
+export function LinkButton({ icon, label, ...props }: LinkProps) {
   return (
     <Link
-      href={href}
+      {...props}
       className={"rounded-lg border w-min flex flex-row px-4 py-2 mx-1"}
-      style={style}
       asChild
     >
       <TouchableOpacity className="flex flex-row items-center justify-between space-x-2 w-min">
-        {icon && <FontAwesome className="w-4 h-4" size={16} name={icon} />}
+        {icon && (
+          <FontAwesome
+            className="w-4 h-4"
+            size={16}
+            name={icon}
+            color={useThemeColor("iconColor")}
+          />
+        )}
 
         <Text className="text-lg">{label}</Text>
       </TouchableOpacity>
@@ -55,5 +61,16 @@ export function LinkButton({ href, icon, label, style }: LinkProps) {
 }
 
 export function GhostLink(props: LinkProps) {
-  return <LinkButton {...props} className="bg-transparent border-gray-300" />;
+  return (
+    <LinkButton
+      {...props}
+      className="bg-transparent"
+      style={[
+        props.style,
+        {
+          borderColor: useThemeColor("borderColor"),
+        },
+      ]}
+    />
+  );
 }
