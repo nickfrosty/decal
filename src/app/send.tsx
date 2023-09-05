@@ -1,11 +1,11 @@
 import { Stack } from "expo-router";
-import { Alert, StyleSheet, TextInput, TouchableOpacity } from "react-native";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { Alert, StyleSheet, TextInput } from "react-native";
 
 import { ScrollView, Text, View } from "@/components/core/Themed";
 import Colors from "@/constants/Colors";
 import { Button } from "@/components/core/buttons";
 import { ChevronUpDownIcon } from "react-native-heroicons/solid";
+import { TouchableOpacity } from "@/components/StyledText";
 
 export default function Screen() {
   return (

@@ -1,5 +1,5 @@
 import { Stack } from "expo-router";
-import { Alert, StyleSheet, TextInput, TouchableOpacity } from "react-native";
+import { Alert, StyleSheet } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 
 import { Text, View, ScrollView } from "@/components/core/Themed";

@@ -1,8 +1,13 @@
 import { Link, Tabs } from "expo-router";
-import { Pressable, useColorScheme, StyleSheet } from "react-native";
+import { useColorScheme } from "react-native";
 
 import Colors from "@/constants/Colors";
-import { DrawerToggleButton, View } from "@/components/core/Themed";
+import {
+  DrawerToggleButton,
+  HeaderStyles,
+  View,
+  useThemeColor,
+} from "@/components/core/Themed";
 
 import {
   WalletIcon,
@@ -18,6 +23,7 @@ import {
   UserCircleIcon,
   WrenchScrewdriverIcon,
 } from "react-native-heroicons/outline";
+import { TouchableOpacity } from "@/components/StyledText";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -39,35 +45,24 @@ export default function TabLayout() {
         options={{
           tabBarIcon: ({ color }) => <SparklesIcon size={32} color={color} />,
           headerRight: () => (
-            <View
-              style={{
-                alignItems: "center",
-                justifyContent: "center",
-                flexDirection: "row",
-              }}
-            >
+            <View className="flex-row items-center align-middle bg-transparent">
               <Link href={"/qr"} asChild>
-                <Pressable>
-                  {({ pressed }) => (
-                    <QrCodeIcon
-                      size={25}
-                      color={Colors[colorScheme ?? "light"].text}
-                      style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                    />
-                  )}
-                </Pressable>
+                <TouchableOpacity>
+                  <QrCodeIcon
+                    color={useThemeColor("iconColor")}
+                    style={HeaderStyles.icon}
+                  />
+                </TouchableOpacity>
               </Link>
               {/* <Link href={"/send"} asChild>
-                <Pressable>
-                  {({ pressed }) => (
+                <TouchableOpacity>
                     <FontAwesome
                       name="send-o"
                       size={25}
                       color={Colors[colorScheme ?? "light"].text}
                       style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
                     />
-                  )}
-                </Pressable>
+                </TouchableOpacity>
               </Link> */}
             </View>
           ),

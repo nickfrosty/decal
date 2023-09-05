@@ -29,8 +29,8 @@ export default function Screen() {
         <Text className={"font-semibold text-2xl text-center"}>Misc pages</Text>
 
         <View className="flex flex-row items-center justify-center">
-          {/* <GhostLink href="/search" label="Search" /> */}
-          <GhostLink href="/wallet/generate" label="Generate" />
+          <GhostLink href="/search" label="Search" />
+          {/* <GhostLink href="/wallet/generate" label="Generate" /> */}
           {/* <GhostLink href="/transaction/sign" label="Sign" /> */}
           {/* <GhostLink href="/transaction/request" label="Request" /> */}
         </View>

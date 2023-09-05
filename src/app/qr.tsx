@@ -1,12 +1,8 @@
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import {
-  Platform,
-  Pressable,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import { Platform, Pressable, StyleSheet } from "react-native";
 
+import { TouchableOpacity } from "@/components/StyledText";
 import { TextInput } from "react-native-gesture-handler";
 import { ScrollView, Text, View } from "@/components/core/Themed";
 
