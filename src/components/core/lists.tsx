@@ -1,9 +1,10 @@
 import clsx from "clsx";
-import { Pressable } from "react-native";
-import { PressableProps } from "react-native/Libraries/Components/Pressable/Pressable";
-
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { Text, View, ViewProps } from "./Themed";
+import { Text, View, ViewProps } from "@/components/core/Themed";
+import {
+  TouchableOpacity,
+  TouchableOpacityProps,
+} from "@/components/StyledText";
 
 export function List({
   children,
@@ -27,7 +28,7 @@ type ListItemProps = {
   title: string;
   value?: string;
   icon?: React.ComponentProps<typeof FontAwesome>["name"];
-} & PressableProps;
+} & TouchableOpacityProps;
 
 export function ListItem({
   style,
@@ -37,12 +38,13 @@ export function ListItem({
   onPress,
 }: ListItemProps) {
   return (
-    <Pressable
+    <TouchableOpacity
       className={clsx(
         "flex flex-row items-center justify-between px-4 py-3 space-x-2 align-middle bg-gray-100 border border-transparent ",
       )}
       style={style}
       onPress={onPress}
+      disabled={typeof onPress != "function"}
     >
       <Text className={"text-base font-semibold text-black"}>{title}</Text>
 
@@ -53,6 +55,6 @@ export function ListItem({
           {icon && <FontAwesome className="w-4 h-4" size={16} name={icon} />}
         </View>
       )}
-    </Pressable>
+    </TouchableOpacity>
   );
 }

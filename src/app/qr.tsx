@@ -1,10 +1,6 @@
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { Platform, Pressable, StyleSheet } from "react-native";
-
-import { TouchableOpacity } from "@/components/StyledText";
-import { TextInput } from "react-native-gesture-handler";
-import { ScrollView, Text, View } from "@/components/core/Themed";
+import { Platform, StyleSheet } from "react-native";
 
 import { useEffect, useState } from "react";
 import {
@@ -14,6 +10,7 @@ import {
   PermissionStatus,
 } from "expo-barcode-scanner";
 import { Button } from "@/components/core/buttons";
+import { ScrollView, Text, View } from "@/components/core/Themed";
 
 export default function Screen() {
   //

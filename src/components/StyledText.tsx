@@ -8,3 +8,5 @@ export function MonoText(props: TextProps) {
 export function TouchableOpacity(props: DefaultTouchableOpacity["props"]) {
   return <DefaultTouchableOpacity {...props} activeOpacity={0.7} />;
 }
+
+export type TouchableOpacityProps = DefaultTouchableOpacity["props"];

@@ -1,5 +1,5 @@
 import { Stack } from "expo-router";
-import { Alert, Pressable, StyleSheet, TextInput } from "react-native";
+import { Alert, StyleSheet, TextInput } from "react-native";
 
 import { Text, View, ScrollView } from "@/components/core/Themed";
 import { encodeURL } from "@solana/pay";
@@ -8,6 +8,7 @@ import { PublicKey } from "@solana/web3.js";
 import QRCode from "react-native-qrcode-svg";
 import { Button } from "@/components/core/buttons";
 import { ChevronUpDownIcon } from "react-native-heroicons/solid";
+import { TouchableOpacity } from "@/components/StyledText";
 
 const QR_CODE_SIZE = 200;
 
@@ -36,7 +37,7 @@ export default function RequestScreen() {
           options={{ title: "Request Payment" }}
         />
 
-        <Pressable
+        <TouchableOpacity
           onPress={() => Alert.alert("copy wallet address")}
           className="p-4 m-4 border border-gray-300 rounded-xl"
         >
@@ -44,7 +45,7 @@ export default function RequestScreen() {
             value={address ?? solanaPayUri.toString()}
             size={QR_CODE_SIZE}
           />
-        </Pressable>
+        </TouchableOpacity>
 
         <View className="flex flex-row items-center justify-between w-full px-4 py-3 space-x-4 bg-transparent border border-gray-300 rounded-lg">
           <View className="flex flex-row items-center space-x-2 align-middle">

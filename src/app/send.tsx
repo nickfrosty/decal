@@ -5,7 +5,6 @@ import { ScrollView, Text, View } from "@/components/core/Themed";
 import Colors from "@/constants/Colors";
 import { Button } from "@/components/core/buttons";
 import { ChevronUpDownIcon } from "react-native-heroicons/solid";
-import { TouchableOpacity } from "@/components/StyledText";
 
 export default function Screen() {
   return (

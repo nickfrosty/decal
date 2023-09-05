@@ -1,11 +1,12 @@
 import clsx from "clsx";
-// import { Pressable } from "react-native";
 import { Link, LinkProps as DefaultLinkProps } from "expo-router";
 
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Text } from "@/components/core/Themed";
-import { TouchableOpacity as DefaultTouchableOpacity } from "react-native-gesture-handler";
-import { TouchableOpacity } from "@/components/StyledText";
+import {
+  TouchableOpacity,
+  TouchableOpacityProps,
+} from "@/components/StyledText";
 
 type ButtonGenericProps = {
   icon?: React.ComponentProps<typeof FontAwesome>["name"];
@@ -17,7 +18,7 @@ type ButtonGenericProps = {
 
 type LinkProps = ButtonGenericProps & DefaultLinkProps<string>;
 
-type ButtonProps = ButtonGenericProps & DefaultTouchableOpacity["props"];
+type ButtonProps = ButtonGenericProps & TouchableOpacityProps;
 
 export function Button({ icon, label, labelClassName, ...props }: ButtonProps) {
   return (

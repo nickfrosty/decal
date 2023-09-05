@@ -1,11 +1,10 @@
+import { Stack } from "expo-router";
 import { StyleSheet } from "react-native";
+import Colors from "@/constants/Colors";
 
 import EditScreenInfo from "@/components/EditScreenInfo";
 import { Text, View, ScrollView } from "@/components/core/Themed";
-import Colors from "@/constants/Colors";
 import { GhostLink } from "@/components/core/buttons";
-import { Stack } from "expo-router";
-import { Pressable } from "react-native";
 
 export default function Screen() {
   return (
@@ -43,9 +42,6 @@ export default function Screen() {
         <GhostLink href="/wallet/import" label="Import" />
         <GhostLink href="/wallet/generate" replace label="Generate" />
       </View>
-      {/* <Pressable className="">
-        <View></View>
-      </View> */}
 
       <EditScreenInfo path="app/(tabs)/index.tsx" />
     </ScrollView>

@@ -1,9 +1,10 @@
 import { Stack } from "expo-router";
-import { Alert, Pressable, StyleSheet, TextInput } from "react-native";
+import { Alert, StyleSheet, TextInput } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 
 import { Text, View, ScrollView } from "@/components/core/Themed";
 import { useRef } from "react";
+import { TouchableOpacity } from "@/components/StyledText";
 
 export default function Screen() {
   const searchInputRef = useRef<TextInput>(null);
@@ -37,21 +38,24 @@ export default function Screen() {
         </View> */}
 
         <View className="flex flex-row items-center justify-between px-2 align-middle border border-gray-300 rounded-lg gap-x-2">
-          <Pressable
+          <TouchableOpacity
             className="text-gray-400"
             onPress={() => searchInputRef.current?.focus()}
           >
             <FontAwesome size={18} name="search" color={"#aaa"} />
-          </Pressable>
+          </TouchableOpacity>
           <TextInput
             ref={searchInputRef}
             className="flex-grow px-2 py-2 text-lg"
             placeholder="Search for a friend or address"
             keyboardType="default"
           />
-          <Pressable className="p-1" onPress={() => Alert.alert("qr code")}>
+          <TouchableOpacity
+            className="p-1"
+            onPress={() => Alert.alert("qr code")}
+          >
             <FontAwesome size={24} name="qrcode" />
-          </Pressable>
+          </TouchableOpacity>
         </View>
 
         {/* favorites list */}
@@ -62,7 +66,7 @@ export default function Screen() {
 
           <View className="flex flex-row gap-x-4">
             {[0, 1, 2, 3].map((item, id) => (
-              <Pressable
+              <TouchableOpacity
                 key={id}
                 onPress={() => Alert.alert("person")}
                 className="flex flex-col items-center"
@@ -76,10 +80,10 @@ export default function Screen() {
                   />
                 </View>
                 <Text className={"text-base text-gray-500"}>Name</Text>
-              </Pressable>
+              </TouchableOpacity>
             ))}
 
-            <Pressable
+            <TouchableOpacity
               onPress={() => Alert.alert("add new")}
               className="flex flex-col items-center"
             >
@@ -92,12 +96,12 @@ export default function Screen() {
                 />
               </View>
               <Text className={"text-base text-gray-500"}></Text>
-            </Pressable>
+            </TouchableOpacity>
           </View>
         </View>
 
         {/* full width person card */}
-        <Pressable
+        <TouchableOpacity
           onPress={() => Alert.alert("person")}
           className="flex flex-row items-center gap-5"
         >
@@ -116,7 +120,7 @@ export default function Screen() {
               @username
             </Text>
           </View>
-        </Pressable>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );
