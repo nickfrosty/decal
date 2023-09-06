@@ -3,7 +3,7 @@ import { Alert, StyleSheet } from "react-native";
 
 import { Text, View, ScrollView } from "@/components/core/Themed";
 import { Button } from "@/components/core/buttons";
-import { MonoText } from "@/components/StyledText";
+import { MonoText } from "@/components/core/Styled";
 import { HeroIcon, HeroTitleSection } from "@/components/ScreenHero";
 import { BoltIcon } from "react-native-heroicons/solid";
 

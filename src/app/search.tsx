@@ -4,7 +4,7 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 
 import { Text, View, ScrollView } from "@/components/core/Themed";
 import { useRef } from "react";
-import { TouchableOpacity } from "@/components/StyledText";
+import { TouchableOpacity } from "@/components/core/Styled";
 
 export default function Screen() {
   const searchInputRef = useRef<TextInput>(null);

@@ -4,7 +4,7 @@ import { Text, View, ViewProps, useThemeColor } from "@/components/core/Themed";
 import {
   TouchableOpacity,
   TouchableOpacityProps,
-} from "@/components/StyledText";
+} from "@/components/core/Styled";
 
 export function List({
   children,

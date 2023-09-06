@@ -8,7 +8,7 @@ import { PublicKey } from "@solana/web3.js";
 import QRCode from "react-native-qrcode-svg";
 import { Button } from "@/components/core/buttons";
 import { ChevronUpDownIcon } from "react-native-heroicons/solid";
-import { TouchableOpacity } from "@/components/StyledText";
+import { TouchableOpacity } from "@/components/core/Styled";
 
 const QR_CODE_SIZE = 200;
 

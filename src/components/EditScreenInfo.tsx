@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 
 import Colors from "@/constants/Colors";
 import { ExternalLink } from "./ExternalLink";
-import { MonoText } from "./StyledText";
+import { MonoText } from "./core/Styled";
 import { Text, View } from "./core/Themed";
 
 export default function EditScreenInfo({ path }: { path: string }) {

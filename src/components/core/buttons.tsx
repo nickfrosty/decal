@@ -6,7 +6,7 @@ import { Text, useThemeColor } from "@/components/core/Themed";
 import {
   TouchableOpacity,
   TouchableOpacityProps,
-} from "@/components/StyledText";
+} from "@/components/core/Styled";
 
 type ButtonGenericProps = {
   icon?: React.ComponentProps<typeof FontAwesome>["name"];

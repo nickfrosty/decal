@@ -23,7 +23,7 @@ import {
   UserCircleIcon,
   WrenchScrewdriverIcon,
 } from "react-native-heroicons/outline";
-import { TouchableOpacity } from "@/components/StyledText";
+import { TouchableOpacity } from "@/components/core/Styled";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();

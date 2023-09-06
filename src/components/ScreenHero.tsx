@@ -1,7 +1,7 @@
 import { Text, View } from "@/components/core/Themed";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import clsx from "clsx";
-import { MonoText } from "@/components/StyledText";
+import { MonoText } from "@/components/core/Styled";
 
 type ComponentProps = {
   label?: string;

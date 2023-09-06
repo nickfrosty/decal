@@ -1,5 +1,5 @@
 import { TouchableOpacity as DefaultTouchableOpacity } from "react-native-gesture-handler";
-import { Text, TextProps } from "./core/Themed";
+import { Text, TextProps } from "./Themed";
 import { forwardRef } from "react";
 
 export function MonoText(props: TextProps) {
