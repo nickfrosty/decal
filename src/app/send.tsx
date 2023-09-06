@@ -1,6 +1,7 @@
 import { Stack } from "expo-router";
-import { Alert, StyleSheet, TextInput } from "react-native";
+import { Alert, StyleSheet } from "react-native";
 
+import { TextInput } from "@/components/core/Styled";
 import { ScrollView, Text, View } from "@/components/core/Themed";
 import Colors from "@/constants/Colors";
 import { Button } from "@/components/core/buttons";
