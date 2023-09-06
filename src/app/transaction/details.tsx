@@ -2,7 +2,7 @@ import { Stack } from "expo-router";
 import { Alert, StyleSheet } from "react-native";
 
 import { Text, View, ScrollView } from "@/components/core/Themed";
-import { Button } from "@/components/core/buttons";
+import { Button, GhostButton } from "@/components/core/buttons";
 import { List, ListItem } from "@/components/core/lists";
 import { shortText } from "@/lib/utils";
 import { HeroIcon, HeroTitleSection } from "@/components/ScreenHero";
@@ -50,19 +50,19 @@ export default function Screen() {
 
         {/* todo: show the associated memo with this transaction? */}
 
-        <Button
-          label="Close"
-          onPress={() => Alert.alert("close")}
-          className="bg-blue-500"
-          labelClassName="text-white"
-        />
-
         <View className="flex flex-col w-full gap-2">
           <Button
+            label="Close"
+            onPress={() => Alert.alert("close")}
+            className="bg-blue-500"
+            labelClassName="text-white"
+          />
+
+          <GhostButton
             label="Open on Explorer"
             onPress={() => Alert.alert("explorer")}
-            className="flex-grow bg-transparent border-gray-300"
-            labelClassName="text-black text-base"
+            // className="flex-grow bg-transparent border-gray-300"
+            labelClassName="text-base"
             icon="external-link"
           />
         </View>

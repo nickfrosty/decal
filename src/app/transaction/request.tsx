@@ -48,11 +48,11 @@ export default function TransactionRequestScreen() {
 
         {/* simple transaction details */}
         <List>
-          {/* <ListItem title="Network" value={"Solana mainnet"} /> */}
+          {/* <ListItem isTopItem={true} title="Network" value={"Solana mainnet"} /> */}
           <ListItem
+            isTopItem={true}
             title="Network fee"
             value={"0.000005 SOL"}
-            className="border-b-gray-200"
           />
           <ListItem title="Fee payer" value={"you"} />
         </List>
@@ -70,8 +70,8 @@ export default function TransactionRequestScreen() {
               {/* pl-5 space-y-2 bg-red-300 gap-y-3 */}
               <List>
                 <ListItem
+                  isTopItem={true}
                   title="#0 - Compute Budget Program"
-                  className="border-b-gray-300"
                 />
                 {/* <ListItem title="Fee payer" value={"you"} /> */}
                 <ListItem
@@ -82,19 +82,16 @@ export default function TransactionRequestScreen() {
               </List>
               <View className="mb-2"></View>
               <List>
-                <ListItem
-                  title="#1 - Squads v3"
-                  className="border-b-gray-300"
-                />
+                <ListItem isTopItem={true} title="#1 - Squads v3" />
                 <ListItem
                   title="Program ID"
                   value={shortText("SMPLec...8ZekMu")}
                 />
                 {/* <ListItem title="Signer" value={shortText("ryctvykluiuiykudjfg")} /> */}
                 {/* <ListItem
-              title="Data"
-              value={"e7ad315beb18441306000000000102030405"}
-            /> */}
+                  title="Data"
+                  value={"e7ad315beb18441306000000000102030405"}
+                /> */}
               </List>
             </View>
           </>

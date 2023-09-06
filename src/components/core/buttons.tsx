@@ -20,20 +20,45 @@ type LinkProps = ButtonGenericProps & DefaultLinkProps<string>;
 
 type ButtonProps = ButtonGenericProps & TouchableOpacityProps;
 
+/**
+ * todo: add support for the label and button styles for manually defining themed styled via the props
+ */
 export function Button({ icon, label, labelClassName, ...props }: ButtonProps) {
   return (
     <TouchableOpacity
-      {...props}
       className={
-        "flex flex-row items-center justify-center w-full px-4 py-3 border border-transparent space-x-2 text-center rounded-full"
+        "flex flex-row items-center justify-center w-full px-4 py-3 space-x-2 text-center rounded-full"
       }
+      {...props}
     >
       {!!label && (
         <Text className={clsx("text-lg", labelClassName)}>{label}</Text>
       )}
 
-      {!!icon && <FontAwesome className="w-4 h-4" size={16} name={icon} />}
+      {!!icon && (
+        <FontAwesome
+          className="w-4 h-4"
+          size={16}
+          name={icon}
+          color={useThemeColor("iconColor")}
+        />
+      )}
     </TouchableOpacity>
+  );
+}
+
+export function GhostButton(props: ButtonProps) {
+  return (
+    <Button
+      {...props}
+      className="bg-transparent border"
+      style={[
+        props.style,
+        {
+          borderColor: useThemeColor("borderColor"),
+        },
+      ]}
+    />
   );
 }
 
