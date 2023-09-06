@@ -2,15 +2,39 @@ import { TouchableOpacity as DefaultTouchableOpacity } from "react-native-gestur
 import { Text, TextProps } from "./Themed";
 import { forwardRef } from "react";
 
+import { useColorScheme, TextInput as DefaultTextInput } from "react-native";
+import Colors from "@/constants/Colors";
+
+export type TouchableOpacityProps = DefaultTouchableOpacity["props"];
+export type TextInputProps = DefaultTextInput["props"];
+
 export function MonoText(props: TextProps) {
   return <Text {...props} style={[props.style, { fontFamily: "SpaceMono" }]} />;
 }
 
 export const TouchableOpacity = forwardRef<
   DefaultTouchableOpacity,
-  DefaultTouchableOpacity["props"]
->((props: DefaultTouchableOpacity["props"], ref) => {
+  TouchableOpacityProps
+>((props: TouchableOpacityProps, ref) => {
   return <DefaultTouchableOpacity {...props} activeOpacity={0.7} />;
 });
 
-export type TouchableOpacityProps = DefaultTouchableOpacity["props"];
+export const TextInput = forwardRef<DefaultTextInput, TextInputProps>(
+  ({ style, ...otherProps }: TextInputProps, ref) => {
+    const theme = useColorScheme() ?? "light";
+
+    return (
+      <DefaultTextInput
+        style={[
+          {
+            backgroundColor: Colors[theme].background,
+            color: Colors[theme].text,
+            borderColor: Colors[theme].borderColor,
+          },
+          style,
+        ]}
+        {...otherProps}
+      />
+    );
+  },
+);
