@@ -25,6 +25,7 @@ export const TextInput = forwardRef<DefaultTextInput, TextInputProps>(
 
     return (
       <DefaultTextInput
+        placeholderTextColor={Colors[theme].minorColor}
         style={[
           {
             backgroundColor: Colors[theme].background,
