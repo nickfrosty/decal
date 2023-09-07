@@ -22,6 +22,7 @@ import {
 } from "@/lib/utils/wallet";
 import { SeedPhraseWordList } from "@/components/wallet/SeedPhrase";
 import { HeroIcon, HeroTitleSection } from "@/components/ScreenHero";
+import { ViewBox } from "@/components/core/Styled";
 
 export default function Screen() {
   // generate a random seed phrase words to start
@@ -58,7 +59,7 @@ export default function Screen() {
           title: "Generate a seed phrase",
           headerShown: true,
           // headerLeft: () => null,
-          headerLeft: () => <></>,
+          // headerLeft: () => <></>,
           headerRight: () => (
             <ArrowPathIcon
               style={HeaderStyles.icon}
@@ -92,14 +93,14 @@ export default function Screen() {
           {/* todo: this should only be show in developer mode? */}
           {/* todo: also make this a drop down that can view all the other derived addresses */}
           {!!publicAddress && (
-            <Text
-              className={
-                "text-gray-500 text-center text-base border border-gray-300 bg-gray-100 px-3 py-2 rounded-xl"
-              }
-            >
-              Your default public address will be:{`\n`}
-              {shortText(publicAddress, 10, "...")}
-            </Text>
+            <ViewBox>
+              <Text
+                className={"text-center text-base w-full justify-self-center"}
+              >
+                Your default public address will be:{`\n`}
+                {shortText(publicAddress, 10, "...")}
+              </Text>
+            </ViewBox>
           )}
 
           <SeedPhraseWordList words={seedPhrase} />

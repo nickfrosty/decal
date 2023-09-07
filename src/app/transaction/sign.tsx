@@ -3,7 +3,7 @@ import { Alert, StyleSheet } from "react-native";
 
 import { Text, View, ScrollView } from "@/components/core/Themed";
 import { Button } from "@/components/core/buttons";
-import { MonoText } from "@/components/core/Styled";
+import { MonoText, ViewBox } from "@/components/core/Styled";
 import { HeroIcon, HeroTitleSection } from "@/components/ScreenHero";
 import { BoltIcon } from "react-native-heroicons/solid";
 
@@ -31,12 +31,12 @@ export default function Screen() {
           }
         />
 
-        <View className="flex flex-row items-center justify-between px-4 py-3 space-x-2 overflow-hidden align-middle bg-gray-100 border border-transparent border-gray-200 rounded-lg">
-          <MonoText className={"text-base text-black"}>
+        <ViewBox>
+          <MonoText className="text-base">
             this is simple message that is so long that it should handle the
             word wrap
           </MonoText>
-        </View>
+        </ViewBox>
 
         <Text className={"text-gray-500 text-center"}>
           No funds will be exchanged and no fees will be paid.
