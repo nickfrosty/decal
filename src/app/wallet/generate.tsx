@@ -3,7 +3,12 @@ import { Alert } from "react-native";
 import { useState, useEffect } from "react";
 import DefaultLayout from "@/components/core/DefaultLayout";
 
-import { Text, View } from "@/components/core/Themed";
+import {
+  HeaderStyles,
+  Text,
+  View,
+  useThemeColor,
+} from "@/components/core/Themed";
 import { Button } from "@/components/core/buttons";
 import {
   ArrowPathIcon,
@@ -56,8 +61,8 @@ export default function Screen() {
           headerLeft: () => <></>,
           headerRight: () => (
             <ArrowPathIcon
-              size={24}
-              color={"black"}
+              style={HeaderStyles.icon}
+              color={useThemeColor("iconColor")}
               onPress={() => {
                 // first clear the seed phrase
                 setSeedPhrase([]);
