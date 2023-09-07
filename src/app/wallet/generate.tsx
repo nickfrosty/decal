@@ -22,7 +22,7 @@ import {
 } from "@/lib/utils/wallet";
 import { SeedPhraseWordList } from "@/components/wallet/SeedPhrase";
 import { HeroIcon, HeroTitleSection } from "@/components/ScreenHero";
-import { ViewBox } from "@/components/core/Styled";
+import { TouchableOpacity, ViewBox } from "@/components/core/Styled";
 
 export default function Screen() {
   // generate a random seed phrase words to start
@@ -61,16 +61,18 @@ export default function Screen() {
           // headerLeft: () => null,
           // headerLeft: () => <></>,
           headerRight: () => (
-            <ArrowPathIcon
-              style={HeaderStyles.icon}
-              color={useThemeColor("iconColor")}
-              onPress={() => {
-                // first clear the seed phrase
-                setSeedPhrase([]);
-                // then generate a new one
-                setTimeout(() => setSeedPhrase(generateSeedPhrase()), 1);
-              }}
-            />
+            <TouchableOpacity>
+              <ArrowPathIcon
+                style={HeaderStyles.icon}
+                color={useThemeColor("iconColor")}
+                onPress={() => {
+                  // first clear the seed phrase
+                  setSeedPhrase([]);
+                  // then generate a new one
+                  setTimeout(() => setSeedPhrase(generateSeedPhrase()), 1);
+                }}
+              />
+            </TouchableOpacity>
           ),
         }}
       />
