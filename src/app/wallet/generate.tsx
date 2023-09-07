@@ -103,6 +103,21 @@ export default function Screen() {
           )}
 
           <SeedPhraseWordList words={seedPhrase} />
+
+          <Text className={"text-gray-500 text-center"}>
+            Make sure your have written down your seed phrase.{"\n"}
+            You will be asked to confirm it on the next screen.
+          </Text>
+
+          <View className="flex flex-col gap-2">
+            <Button
+              // href="/wallet/import"
+              label="Continue"
+              onPress={() => Alert.alert("continue")}
+              className="bg-blue-500"
+              labelClassName="text-white"
+            />
+          </View>
         </>
       ) : (
         <Text className="my-10 text-xl text-center">
@@ -110,28 +125,6 @@ export default function Screen() {
           please wait...
         </Text>
       )}
-
-      <Text className={"text-gray-500 text-center"}>
-        Make sure your have written down your seed phrase.{"\n"}
-        You will be asked to confirm it on the next screen.
-      </Text>
-
-      <View className="flex flex-col gap-2">
-        <Button
-          // href="/wallet/import"
-          label="Continue"
-          onPress={() => Alert.alert("continue")}
-          className="bg-blue-500"
-          labelClassName="text-white"
-        />
-        {/* <Button
-          label="Generate Another"
-          onPress={() => Alert.alert("reject")}
-          className="bg-transparent border-gray-300"
-          labelClassName="text-black text-base"
-          // icon="external-link"
-        /> */}
-      </View>
     </DefaultLayout>
   );
 }
