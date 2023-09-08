@@ -16,6 +16,7 @@ import { Keypair } from "@solana/web3.js";
 // import various global libraries
 import "@/styles/global.css";
 import "@/shims";
+import { ConnectionProvider } from "@/context/ConnectionProvider";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -88,16 +89,21 @@ function RootLayoutNav() {
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <Stack screenOptions={{}}>
-        <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
-        <Stack.Screen name="wallet/generate" options={{ headerShown: false }} />
+      <ConnectionProvider>
+        <Stack screenOptions={{}}>
+          <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
+          <Stack.Screen
+            name="wallet/generate"
+            options={{ headerShown: false }}
+          />
 
-        {/* <Stack.Screen name="(tabs)" options={{ headerShown: false }} /> */}
-        {/* <Stack.Screen name="settings" options={{ headerShown: false }} /> */}
-        {/* <Stack.Screen name="modal" options={{ presentation: "modal" }} /> */}
-        <Stack.Screen name="send" options={{ presentation: "modal" }} />
-        <Stack.Screen name="request" options={{ presentation: "modal" }} />
-      </Stack>
+          {/* <Stack.Screen name="(tabs)" options={{ headerShown: false }} /> */}
+          {/* <Stack.Screen name="settings" options={{ headerShown: false }} /> */}
+          {/* <Stack.Screen name="modal" options={{ presentation: "modal" }} /> */}
+          <Stack.Screen name="send" options={{ presentation: "modal" }} />
+          <Stack.Screen name="request" options={{ presentation: "modal" }} />
+        </Stack>
+      </ConnectionProvider>
     </ThemeProvider>
   );
 }
