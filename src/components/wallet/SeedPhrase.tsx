@@ -26,7 +26,7 @@ export const SeedPhraseWordList = memo(
               <TextInput
                 ref={(ref) => (inputRefs.current[id] = ref)}
                 className="flex-row p-2 text-base border !pl-8 rounded-xl"
-                placeholder={(id + 1).toString()}
+                // placeholder={(id + 1).toString()}
                 keyboardType="default"
                 returnKeyType={id + 1 == words.length ? "done" : "next"}
                 onSubmitEditing={() =>
