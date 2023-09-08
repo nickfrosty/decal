@@ -16,7 +16,7 @@ export default function Screen() {
         }}
       />
 
-      <View>
+      <View className="my-6">
         <View style={balance.container}>
           <Text
             style={balance.label}
