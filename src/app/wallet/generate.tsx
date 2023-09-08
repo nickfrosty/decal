@@ -90,7 +90,13 @@ export default function Screen() {
         }
       />
 
-      {seedPhrase.length > 0 ? (
+      {/* note: this is before the next UI section to satisfy the react renderer */}
+      {seedPhrase.length <= 0 ? (
+        <Text className="my-10 text-xl text-center">
+          Generating seed phrase,{"\n"}
+          please wait...
+        </Text>
+      ) : (
         <>
           {/* todo: this should only be show in developer mode? */}
           {/* todo: also make this a drop down that can view all the other derived addresses */}
@@ -122,11 +128,6 @@ export default function Screen() {
             />
           </View>
         </>
-      ) : (
-        <Text className="my-10 text-xl text-center">
-          Generating seed phrase,{"\n"}
-          please wait...
-        </Text>
       )}
     </DefaultLayout>
   );
