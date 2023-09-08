@@ -5,22 +5,17 @@ import {
   ThemeProvider,
 } from "@react-navigation/native";
 import { useFonts } from "expo-font";
-import { SplashScreen, Stack } from "expo-router";
 import { useEffect } from "react";
+import { SplashScreen, Stack } from "expo-router";
 import { useColorScheme } from "react-native";
 
 import base58 from "bs58";
-
-import { Buffer } from "buffer";
-global.Buffer = Buffer;
-import "react-native-get-random-values";
-import "react-native-url-polyfill/auto";
-
 import { getUserWalletDetails, storeSingleKeypair } from "@/lib/utils/wallet";
 import { Keypair } from "@solana/web3.js";
 
 // import various global libraries
 import "@/styles/global.css";
+import "@/shims";
 
 export {
   // Catch any errors thrown by the Layout component.
