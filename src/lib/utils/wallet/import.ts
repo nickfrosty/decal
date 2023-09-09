@@ -5,7 +5,7 @@
 import * as base58 from "bs58";
 import { Connection, PublicKey } from "@solana/web3.js";
 import * as SecureStore from "expo-secure-store";
-import { seedPhraseToKeypairs } from ".";
+import { seedPhraseToKeypairs, storeSingleKeypair } from ".";
 
 const TEMP_SEED_PHRASE_KEY = "TMP_SEED_PHRASE_KEY";
 
@@ -44,14 +44,14 @@ export type AccountImportDetails = {
  * Including: `publicKey`, `balance`, and derivation account `index`
  */
 export async function getAccountImportDetails(connection: Connection) {
-  const words = (await getTempSeedPhraseToSecureStore()) ?? "";
-  // console.log("seed phrase:", words);
+  const seedPhrase = (await getTempSeedPhraseToSecureStore()) ?? "";
+  // console.log("seed phrase:", seedPhrase);
 
-  if (!words) {
+  if (!seedPhrase) {
     throw Error("No seed phrase was found in temporary secure storage");
   }
 
-  const keypairs = await seedPhraseToKeypairs(words);
+  const keypairs = await seedPhraseToKeypairs(seedPhrase);
 
   // get the balance of all the derived accounts from the blockchain
   const balances = await Promise.all(
@@ -124,4 +124,58 @@ async function getTempSeedPhraseToSecureStore() {
     // authenticationPrompt: "?",
     // keychainService:
   });
+}
+
+/**
+ * import the selected derived accounts into secure storage for use by the app
+ *
+ * todo: add some way to inform the ui of each imported status. giving better UX
+ */
+export async function importAccountsFromSeedPhrase(
+  accounts: AccountImportDetails[],
+) {
+  // console.log("importAccountsFromSeedPhrase");
+
+  const seedPhrase = (await getTempSeedPhraseToSecureStore()) ?? "";
+  // console.log("seed phrase:", seedPhrase);
+
+  if (!seedPhrase) {
+    throw Error("Seed phrase not found in secure storage");
+  }
+
+  const keypairs = await seedPhraseToKeypairs(seedPhrase);
+
+  const toImport = accounts.filter((item) => item.shouldImport);
+
+  if (toImport.length <= 0) throw Error("No accounts to import found");
+
+  // console.log(toImport);
+
+  // save each of the desired keys into secure storage
+  for (let i = 0; i < toImport.length; i++) {
+    const address = keypairs[toImport[i].index].publicKey.toBase58();
+
+    try {
+      // actually store the secret key into secure storage
+      // (as a base58 encoded version of the secretKey)
+      await storeSingleKeypair(
+        address,
+        base58.encode(keypairs[toImport[i].index].secretKey),
+      );
+
+      /**
+       * todo: better error handling
+       *
+       * this currently makes no attempt to inform the user if the failed account was not actually imported
+       */
+
+      console.log(address, "imported");
+    } catch (err) {
+      console.log(`Unable to import key derived at index ${i}: ${address}`);
+      console.warn(err);
+    }
+  }
+
+  // finally, return
+  return true;
 }
