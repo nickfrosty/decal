@@ -8,60 +8,6 @@ import { derivePath } from "ed25519-hd-key";
 import * as bip39 from "bip39";
 import { DEFAULT_SEED_PHRASE_WORD_COUNT } from "./constants";
 
-const USER_WALLET_METADATA_KEY = "user_wallet_metadata";
-
-/**
- * simple storage format
- */
-type UserWalletDetails = {
-  /**
-   * reference key used to access the private key via `SecureStore`
-   */
-  key: string;
-
-  /**
-   * base58 string of the wallet's publickey
-   */
-  address: string;
-
-  /**
-   * account index in on the derivation path for this account
-   */
-  index: number;
-
-  /**
-   * custom derivation path used for this wallet account
-   *
-   * todo: this would be used to support multiple derivation paths, should the need arise
-   * todo: this will also require some sort of string replacement to use the correct account `index`
-   */
-  // derivationPath?: string;
-};
-
-type UserWalletMetadata = UserWalletDetails[];
-
-/**
- * base58 encoded `secretKey` from a keypair
- *
- * note: convert this to a Keypair using Keypair.fromSecretKey(base58.decode(val))
- */
-type SecureStoreSecretKey = string;
-
-/**
- *
- */
-export async function getUserWalletDetails(): Promise<UserWalletMetadata> {
-  const data = await SecureStore.getItemAsync(USER_WALLET_METADATA_KEY, {
-    // authenticationPrompt: "?",
-    // keychainService:
-  });
-
-  if (!data) return [];
-
-  // parse the secure string as the correct type
-  return JSON.parse(data) as UserWalletMetadata;
-}
-
 /**
  * get a keypair's secret data from SecureStore via its `storageKey`
  */
