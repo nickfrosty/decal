@@ -39,15 +39,16 @@ export default function Screen() {
 
       // save the words to the temporary secure storage
       const didSave = await saveTempSeedPhraseToSecureStore(
-        seedPhrase.join(" ").trim(),
+        seedPhrase.join(" ").trim().toLowerCase(),
       );
 
       if (didSave) {
         // clear the seed phrase state to prevent words from being saved anywhere insecurely
-        setSeedPhrase(new Array(seedPhrase.length).fill(""));
+        // setSeedPhrase(new Array(seedPhrase.length).fill(""));
 
         // note: we use replace to prevent the user from going back to the seed phrase
-        return router.replace("/wallet/selectAccounts");
+        return router.push("/wallet/selectAccounts");
+        // todo: convert to `replace` and clear the seed phrase
       } else throw Error("Unable to securely save your seed phrase");
     } catch (err) {
       console.warn(err);
