@@ -130,6 +130,9 @@ export async function seedPhraseToKeypairs(
   // allow an array of seed phrase words
   if (Array.isArray(seedPhrase)) seedPhrase = seedPhrase.join(" ");
 
+  // always convert the seed phrase to lower case
+  seedPhrase = seedPhrase.trim().toLowerCase();
+
   // convert the seed phrase into a `seed` buffer
   const seed = await bip39.mnemonicToSeed(seedPhrase);
 
