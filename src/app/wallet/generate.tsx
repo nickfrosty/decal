@@ -32,27 +32,25 @@ export default function Screen() {
 
   //
   useEffect(() => {
-    setTimeout(() => setSeedPhrase(generateSeedPhrase()));
-  }, []);
-
-  //
-  useEffect(() => {
-    // do nothing when there is no seed phrase actually set
-    if (seedPhrase.length == 0) return;
-
-    (async () => {
+    setTimeout(async () => {
       try {
+        const seedPhrase = generateSeedPhrase();
         const address = await derivePublicAddressFromSeedPhrase(seedPhrase, 0);
+
         setPublicAddress(address.toBase58());
+        setSeedPhrase(seedPhrase);
       } catch (err) {
         console.log("Unable to determine default public address");
         console.log(err);
       }
-    })();
-  }, [seedPhrase]);
+    });
+  }, []);
 
-  return (
-    <DefaultLayout>
+  /**
+   * Reusable screen header component
+   */
+  const ScreenHeader = () => (
+    <>
       <Stack.Screen
         options={{
           // comment for better diffs
@@ -89,46 +87,53 @@ export default function Screen() {
           "The safest you can imagine. And never share it with anyone!"
         }
       />
+    </>
+  );
 
-      {/* note: this is before the next UI section to satisfy the react renderer */}
-      {seedPhrase.length <= 0 ? (
+  if (seedPhrase.length <= 0) {
+    return (
+      <DefaultLayout>
+        <ScreenHeader />
+
         <Text className="my-10 text-xl text-center">
           Generating seed phrase,{"\n"}
           please wait...
         </Text>
-      ) : (
-        <>
-          {/* todo: this should only be show in developer mode? */}
-          {/* todo: also make this a drop down that can view all the other derived addresses */}
-          {!!publicAddress && (
-            <ViewBox>
-              <Text
-                className={"text-center text-base w-full justify-self-center"}
-              >
-                Your default public address will be:{`\n`}
-                {shortText(publicAddress, 10, "...")}
-              </Text>
-            </ViewBox>
-          )}
+      </DefaultLayout>
+    );
+  }
 
-          <SeedPhraseWordList seedPhrase={seedPhrase} />
+  return (
+    <DefaultLayout>
+      <ScreenHeader />
 
-          <Text className={"text-gray-500 text-center"}>
-            Make sure your have written down your seed phrase.{"\n"}
-            You will be asked to confirm it on the next screen.
+      {/* todo: this should only be show in developer mode? */}
+      {/* todo: also make this a drop down that can view all the other derived addresses */}
+      {!!publicAddress && (
+        <ViewBox>
+          <Text className={"text-center text-base w-full justify-self-center"}>
+            Your default public address will be:{`\n`}
+            {shortText(publicAddress, 10, "...")}
           </Text>
-
-          <View className="flex flex-col gap-2">
-            <Button
-              // href="/wallet/import"
-              label="Continue"
-              onPress={() => Alert.alert("continue")}
-              className="bg-blue-500"
-              labelClassName="text-white"
-            />
-          </View>
-        </>
+        </ViewBox>
       )}
+
+      <SeedPhraseWordList seedPhrase={seedPhrase} />
+
+      <Text className={"text-gray-500 text-center"}>
+        Make sure your have written down your seed phrase.{"\n"}
+        You will be asked to confirm it on the next screen.
+      </Text>
+
+      <View className="flex flex-col gap-2">
+        <Button
+          // href="/wallet/import"
+          label="Continue"
+          onPress={() => Alert.alert("continue")}
+          className="bg-blue-500"
+          labelClassName="text-white"
+        />
+      </View>
     </DefaultLayout>
   );
 }
