@@ -4,6 +4,12 @@ import { Text, View } from "@/components/core/Themed";
 import { TextInput } from "@/components/core/Styled";
 import Colors from "@/constants/Colors";
 
+type SeedPhraseWordListProps = {
+  seedPhrase: string[];
+  setSeedPhrase?: React.Dispatch<React.SetStateAction<string[]>>;
+  isInput?: boolean;
+};
+
 /**
  * display the seed phrase word list in a 3 column grid
  * (and memoize it)
@@ -12,15 +18,27 @@ import Colors from "@/constants/Colors";
  * user continues to generate multiple seed phrases
  */
 export const SeedPhraseWordList = memo(
-  ({ words, isInput }: { words: string[]; isInput?: boolean }) => {
+  ({ seedPhrase, isInput, setSeedPhrase }: SeedPhraseWordListProps) => {
     // create an array of refs to use to travel between input boxes
     const inputRefs = useRef(new Array());
-
     const theme = useColorScheme() ?? "light";
+
+    // if (!setSeedPhrase) setSeedPhrase = () => {};
+
+    // handler function to actually update the state
+    function handleTextChange(id: number, text: string) {
+      if (!setSeedPhrase) return;
+
+      setSeedPhrase((prev) => {
+        // console.log(text.valueOf());
+        prev[id] = text.valueOf().trim();
+        return prev;
+      });
+    }
 
     return (
       <View className="flex flex-row flex-wrap items-center justify-between max-w-sm gap-2">
-        {words.map((item, id) => (
+        {seedPhrase.map((item, id) => (
           <View key={`${item}-${id}`} className="flex max-w-[33%] w-[31%]">
             {isInput ? (
               <TextInput
@@ -28,12 +46,14 @@ export const SeedPhraseWordList = memo(
                 className="flex-row p-2 text-base border !pl-8 rounded-xl"
                 // placeholder={(id + 1).toString()}
                 keyboardType="default"
-                returnKeyType={id + 1 == words.length ? "done" : "next"}
+                returnKeyType={id + 1 == seedPhrase.length ? "done" : "next"}
                 onSubmitEditing={() =>
-                  id + 1 < words.length
+                  id + 1 < seedPhrase.length
                     ? inputRefs?.current[id + 1]?.focus()
                     : undefined
                 }
+                value={seedPhrase[id]}
+                onChangeText={(text) => handleTextChange(id, text)}
               />
             ) : (
               <Text

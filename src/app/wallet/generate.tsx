@@ -111,7 +111,7 @@ export default function Screen() {
             </ViewBox>
           )}
 
-          <SeedPhraseWordList words={seedPhrase} />
+          <SeedPhraseWordList seedPhrase={seedPhrase} />
 
           <Text className={"text-gray-500 text-center"}>
             Make sure your have written down your seed phrase.{"\n"}
