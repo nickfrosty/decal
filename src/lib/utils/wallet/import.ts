@@ -6,6 +6,7 @@ import * as base58 from "bs58";
 import { Connection, PublicKey } from "@solana/web3.js";
 import * as SecureStore from "expo-secure-store";
 import { seedPhraseToKeypairs, storeSingleKeypair } from ".";
+import { saveUserWalletDetails } from "./details";
 
 const TEMP_SEED_PHRASE_KEY = "TMP_SEED_PHRASE_KEY";
 
@@ -162,6 +163,11 @@ export async function importAccountsFromSeedPhrase(
         address,
         base58.encode(keypairs[toImport[i].index].secretKey),
       );
+
+      // add the newly secured secretKey into the user's wallet details listing
+      await saveUserWalletDetails({
+        address,
+      });
 
       /**
        * todo: better error handling
