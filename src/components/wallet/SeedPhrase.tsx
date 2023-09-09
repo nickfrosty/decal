@@ -46,13 +46,15 @@ export const SeedPhraseWordList = memo(
                 className="flex-row p-2 text-base border !pl-8 rounded-xl"
                 // placeholder={(id + 1).toString()}
                 keyboardType="default"
+                autoCapitalize="none"
+                keyboardAppearance={theme}
                 returnKeyType={id + 1 == seedPhrase.length ? "done" : "next"}
                 onSubmitEditing={() =>
                   id + 1 < seedPhrase.length
                     ? inputRefs?.current[id + 1]?.focus()
                     : undefined
                 }
-                value={seedPhrase[id]}
+                // value={seedPhrase[id]}
                 onChangeText={(text) => handleTextChange(id, text)}
               />
             ) : (
