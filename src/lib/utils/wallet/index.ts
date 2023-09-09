@@ -6,6 +6,7 @@ import * as SecureStore from "expo-secure-store";
 import { Keypair } from "@solana/web3.js";
 import { derivePath } from "ed25519-hd-key";
 import * as bip39 from "bip39";
+import { DEFAULT_SEED_PHRASE_WORD_COUNT } from "./constants";
 
 const USER_WALLET_METADATA_KEY = "user_wallet_metadata";
 
@@ -168,7 +169,9 @@ export async function derivePublicAddressFromSeedPhrase(
 /**
  * generate a new random seed phrase at the desired word count
  */
-export function generateSeedPhrase(wordCount: 12 | 24 = 24) {
+export function generateSeedPhrase(
+  wordCount: 12 | 24 = DEFAULT_SEED_PHRASE_WORD_COUNT,
+) {
   //
   const strength = 128 * (wordCount / 12);
 
