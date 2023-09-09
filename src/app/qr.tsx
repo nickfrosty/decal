@@ -61,7 +61,7 @@ export default function Screen() {
 
   function handleBarcodeScan({ type, data }: BarCodeEvent) {
     console.log("type:", type);
-    console.log("data:", data);
+    console.warn(data);
 
     setScanData(data);
   }
