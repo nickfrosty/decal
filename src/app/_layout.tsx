@@ -8,15 +8,11 @@ import { useFonts } from "expo-font";
 import { useEffect } from "react";
 import { SplashScreen, Stack } from "expo-router";
 import { useColorScheme } from "react-native";
-
-import base58 from "bs58";
-import { getUserWalletDetails, storeSingleKeypair } from "@/lib/utils/wallet";
-import { Keypair } from "@solana/web3.js";
+import { ConnectionProvider } from "@/context/ConnectionProvider";
 
 // import various global libraries
 import "@/styles/global.css";
 import "@/shims";
-import { ConnectionProvider } from "@/context/ConnectionProvider";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -58,34 +54,6 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
-
-  // useEffect(() => {
-  //   (async () => {
-  //     try {
-  //       let wallets = await getUserWalletDetails();
-
-  //       console.log("wallets:", wallets);
-
-  //       if (!wallets.length) {
-  //         console.log("Generating a new keypair...");
-  //         const keypair = Keypair.generate();
-  //         const secretKey = base58.encode(keypair.secretKey);
-
-  //         console.log("publicKey:", keypair.publicKey.toBase58());
-  //         console.log("secretKey1:", base58.encode(keypair.secretKey));
-  //         const test = Keypair.fromSecretKey(base58.decode(secretKey));
-  //         console.log("test publicKey:", keypair.publicKey.toBase58());
-
-  //         // await storeSingleKeypair("demo", keypair.secretKey.toString())
-  //       }
-
-  //       console.log("new wallets details:", wallets);
-  //     } catch (err) {
-  //       console.log("Unable to get keystore data");
-  //       console.log(err);
-  //     }
-  //   })();
-  // }, []);
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
