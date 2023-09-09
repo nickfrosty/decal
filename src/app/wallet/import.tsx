@@ -44,11 +44,10 @@ export default function Screen() {
 
       if (didSave) {
         // clear the seed phrase state to prevent words from being saved anywhere insecurely
-        // setSeedPhrase(new Array(seedPhrase.length).fill(""));
+        setSeedPhrase(new Array(seedPhrase.length).fill(""));
 
         // note: we use replace to prevent the user from going back to the seed phrase
-        return router.push("/wallet/selectAccounts");
-        // todo: convert to `replace` and clear the seed phrase
+        return router.replace("/wallet/selectAccounts");
       } else throw Error("Unable to securely save your seed phrase");
     } catch (err) {
       console.warn(err);
