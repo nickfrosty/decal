@@ -101,11 +101,19 @@ export async function getAccountImportDetails(connection: Connection) {
 /**
  * temporarily store seed phrase words to secure storage for retrieval
  */
-export async function saveTempSeedPhraseToSecureStore(words: string) {
-  return await SecureStore.getItemAsync(TEMP_SEED_PHRASE_KEY, {
+export async function saveTempSeedPhraseToSecureStore(seedPhrase: string) {
+  await SecureStore.setItemAsync(TEMP_SEED_PHRASE_KEY, seedPhrase, {
     // authenticationPrompt: "?",
     // keychainService:
   });
+
+  // verify the payload was actually written correctly to the SecureStore
+  const verify = await getTempSeedPhraseToSecureStore();
+  if (!verify || verify !== seedPhrase)
+    throw "Unable to save to temporary secure storage";
+
+  // finally, we are done!
+  return true;
 }
 
 /**
