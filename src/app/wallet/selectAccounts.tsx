@@ -58,27 +58,22 @@ export default function Screen() {
     // }
   }, []);
 
+  if (!accounts || accounts.length <= 0) {
+    return (
+      <DefaultLayout>
+        <ScreenHeader />
+
+        <Text className="my-10 text-xl text-center">
+          Loading account details,{"\n"}
+          please wait...
+        </Text>
+      </DefaultLayout>
+    );
+  }
+
   return (
     <DefaultLayout>
-      <Stack.Screen
-        options={{
-          // comment for better diffs
-          title: "Select accounts",
-          headerShown: true,
-          // headerLeft: () => <></>,
-          headerRight: () => <></>,
-        }}
-      />
-
-      <HeroIcon
-        background="bg-green-500"
-        icon={<UserPlusIcon size={40} color={"white"} />}
-      />
-
-      <HeroTitleSection
-        title={"Select accounts to import"}
-        description={"Select any of the following accounts to import"}
-      />
+      <ScreenHeader />
 
       <View className="">
         {accounts.slice(0, maxAccountsToShow).map((account, id) => (
@@ -133,3 +128,30 @@ export default function Screen() {
     </DefaultLayout>
   );
 }
+
+/**
+ * Reusable screen header component
+ */
+const ScreenHeader = () => (
+  <>
+    <Stack.Screen
+      options={{
+        // comment for better diffs
+        title: "Select accounts",
+        headerShown: true,
+        // headerLeft: () => <></>,
+        headerRight: () => <></>,
+      }}
+    />
+
+    <HeroIcon
+      background="bg-green-500"
+      icon={<UserPlusIcon size={40} color={"white"} />}
+    />
+
+    <HeroTitleSection
+      title={"Select accounts to import"}
+      description={"Select any of the following accounts to import"}
+    />
+  </>
+);
