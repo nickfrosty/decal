@@ -1,10 +1,10 @@
-import { Stack } from "expo-router";
+import { Link, Stack } from "expo-router";
 import { Alert } from "react-native";
 import { useState, useEffect } from "react";
 import DefaultLayout from "@/components/core/DefaultLayout";
 
 import { Text, View } from "@/components/core/Themed";
-import { Button } from "@/components/core/buttons";
+import { Button, LinkButton } from "@/components/core/buttons";
 import { PlusIcon } from "react-native-heroicons/outline";
 
 import { SeedPhraseWordList } from "@/components/wallet/SeedPhrase";
@@ -43,12 +43,14 @@ export default function Screen() {
       </Text> */}
 
       <View className="flex flex-col gap-2">
-        <Button
-          label="Next"
-          onPress={() => Alert.alert("import")}
-          className="bg-blue-500"
-          labelClassName="text-white"
-        />
+        <Link href={"/wallet/selectAccounts"} asChild>
+          <Button
+            label="Next"
+            // onPress={() => Alert.alert("import")}
+            className="w-full bg-blue-500"
+            labelClassName="text-white"
+          />
+        </Link>
         {/* <Button
             label="Generate Another"
             onPress={() => Alert.alert("reject")}
