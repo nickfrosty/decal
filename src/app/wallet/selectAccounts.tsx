@@ -12,10 +12,8 @@ import { seedPhraseToKeypairs } from "@/lib/utils/wallet";
 import { useConnection } from "@/context/ConnectionProvider";
 
 import { MinorText, TouchableOpacity } from "@/components/core/Styled";
-import {
-  AccountDetailsItem,
-  AccountDetails,
-} from "@/components/wallet/AccountImportDetails";
+import { AccountDetailsItem } from "@/components/wallet/AccountImportDetails";
+import { AccountImportDetails } from "@/lib/utils/wallet/import";
 
 // todo: remove this hard coded string
 const words = "";
@@ -27,7 +25,7 @@ export default function Screen() {
   //
   const [loading, setLoading] = useState<boolean>(true);
   const [maxAccountsToShow, setMaxAccountsToShow] = useState<number>(0);
-  const [accounts, setAccounts] = useState<AccountDetails[]>([]);
+  const [accounts, setAccounts] = useState<AccountImportDetails[]>([]);
 
   useEffect(() => {
     (async () => {
@@ -49,7 +47,7 @@ export default function Screen() {
        * format and add each of the account details to the array for display in the UI
        * note: we start at index=1 since the default derived address will always be imported
        */
-      const accountDetails: AccountDetails[] = [];
+      const accountDetails: AccountImportDetails[] = [];
       for (let i = 1; i < accounts.length; i++) {
         // console.log(
         //   `[${i}]`,
@@ -58,7 +56,7 @@ export default function Screen() {
         //   balances[i],
         // );
 
-        const details: AccountDetails = {
+        const details: AccountImportDetails = {
           index: i,
           publicKey: accounts[i].publicKey,
           balance: balances[i],
