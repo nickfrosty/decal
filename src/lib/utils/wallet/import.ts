@@ -45,7 +45,7 @@ export type AccountImportDetails = {
  */
 export async function getAccountImportDetails(connection: Connection) {
   const words = (await getTempSeedPhraseToSecureStore()) ?? "";
-  console.log("seed phrase:", words);
+  // console.log("seed phrase:", words);
 
   if (!words) {
     throw Error("No seed phrase was found in temporary secure storage");
