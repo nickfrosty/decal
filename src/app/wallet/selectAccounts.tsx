@@ -13,7 +13,10 @@ import { useConnection } from "@/context/ConnectionProvider";
 
 import { MinorText, TouchableOpacity } from "@/components/core/Styled";
 import { AccountDetailsItem } from "@/components/wallet/AccountImportDetails";
-import { AccountImportDetails } from "@/lib/utils/wallet/import";
+import {
+  AccountImportDetails,
+  getAccountImportDetails,
+} from "@/lib/utils/wallet/import";
 
 // todo: remove this hard coded string
 const words = "";
@@ -28,64 +31,27 @@ export default function Screen() {
   const [accounts, setAccounts] = useState<AccountImportDetails[]>([]);
 
   useEffect(() => {
-    (async () => {
-      const accounts = await seedPhraseToKeypairs(words);
+    setTimeout(async () => {
+      try {
+        const accountDetails = await getAccountImportDetails(connection);
 
-      const promises: Promise<number>[] = [];
+        const importCounter = accountDetails.filter(
+          (account) =>
+            account.shouldImport || account.balance > 0 || account.index == 0,
+        ).length;
 
-      accounts.map((item) => {
-        promises.push(connection.getBalance(item.publicKey));
-      });
+        // default to showing all the accounts that have a balance on them
+        if (importCounter > maxAccountsToShow)
+          setMaxAccountsToShow(importCounter);
 
-      const balances = await Promise.all(promises);
-
-      // track how many accounts actually have a balance (or we will care about)
-      let balancedAccounts = 1;
-      // note: defaults to 1 since we always care about the first account
-
-      /**
-       * format and add each of the account details to the array for display in the UI
-       * note: we start at index=1 since the default derived address will always be imported
-       */
-      const accountDetails: AccountImportDetails[] = [];
-      for (let i = 1; i < accounts.length; i++) {
-        // console.log(
-        //   `[${i}]`,
-        //   accounts[i].publicKey.toBase58(),
-        //   "-",
-        //   balances[i],
-        // );
-
-        const details: AccountImportDetails = {
-          index: i,
-          publicKey: accounts[i].publicKey,
-          balance: balances[i],
-          shouldImport: i == 0 || balances[i] > 0,
-        };
-
-        // todo: auto sort these by if they should be imported, with the `index=0` account always at the top
-        if (details.balance > 0 || details.shouldImport) {
-          balancedAccounts++;
-          accountDetails.unshift(details);
-        } else accountDetails.push(details);
+        // finally, update the state to show the data in the ui
+        setAccounts(accountDetails);
+        setLoading(false);
+      } catch (err) {
+        console.log("Unable to prepare account details for import");
+        console.error(err);
       }
-
-      // always add the account index=0 to the top of the list
-      accountDetails.unshift({
-        index: 0,
-        shouldImport: true,
-        publicKey: accounts[0].publicKey,
-        balance: balances[0],
-      });
-
-      // default to showing all the accounts that have a balance on them
-      if (balancedAccounts > maxAccountsToShow)
-        setMaxAccountsToShow(balancedAccounts);
-
-      // finally, update the state to show the data in the ui
-      setAccounts(accountDetails);
-      setLoading(false);
-    })();
+    }, 1);
 
     // return () => {
     //   second
