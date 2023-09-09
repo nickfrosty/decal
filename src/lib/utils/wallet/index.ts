@@ -78,7 +78,10 @@ export async function getSingleKeypairFromSecureStore(storageKey: string) {
 export async function storeSingleKeypair(storageKey: string, payload: string) {
   // get the current stored data at `storageKey` to ensure it is not already filled
   const current = await getSingleKeypairFromSecureStore(storageKey);
-  if (!!current) throw "SecureStore `storageKey` is already in use";
+
+  // make sure we are not about to overwrite new, different payload...
+  if (!!current && current !== payload)
+    throw "SecureStore `storageKey` is already in use";
 
   // write the privateKey `payload` to the secure store
   await SecureStore.setItemAsync(storageKey, payload, {
