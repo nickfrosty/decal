@@ -1,4 +1,4 @@
-import { Stack } from "expo-router";
+import { Stack, useRouter } from "expo-router";
 import { Alert, useColorScheme } from "react-native";
 import { useState, useEffect } from "react";
 import DefaultLayout from "@/components/core/DefaultLayout";
@@ -8,7 +8,6 @@ import { Button } from "@/components/core/buttons";
 
 import { HeroIcon, HeroTitleSection } from "@/components/ScreenHero";
 import { UserPlusIcon } from "react-native-heroicons/solid";
-import { seedPhraseToKeypairs } from "@/lib/utils/wallet";
 import { useConnection } from "@/context/ConnectionProvider";
 
 import { MinorText, TouchableOpacity } from "@/components/core/Styled";
@@ -16,19 +15,26 @@ import { AccountDetailsItem } from "@/components/wallet/AccountImportDetails";
 import {
   AccountImportDetails,
   getAccountImportDetails,
+  importAccountsFromSeedPhrase,
 } from "@/lib/utils/wallet/import";
 
-// todo: remove this hard coded string
-const words = "";
-
 export default function Screen() {
+  const router = useRouter();
   const theme = useColorScheme() ?? "light";
   const { connection } = useConnection();
 
   //
-  const [loading, setLoading] = useState<boolean>(true);
   const [maxAccountsToShow, setMaxAccountsToShow] = useState<number>(0);
   const [accounts, setAccounts] = useState<AccountImportDetails[]>([]);
+
+  //
+  async function handleImport() {
+    const successful = await importAccountsFromSeedPhrase(accounts);
+
+    if (successful) {
+      return router.push("/(drawer)/(tabs)/");
+    } else Alert.alert("Unable to import accounts");
+  }
 
   useEffect(() => {
     setTimeout(async () => {
@@ -46,7 +52,6 @@ export default function Screen() {
 
         // finally, update the state to show the data in the ui
         setAccounts(accountDetails);
-        setLoading(false);
       } catch (err) {
         console.log("Unable to prepare account details for import");
         console.error(err);
@@ -116,7 +121,7 @@ export default function Screen() {
       <View className="flex flex-col gap-2">
         <Button
           label="Import"
-          onPress={() => Alert.alert("import")}
+          onPress={() => handleImport()}
           className="bg-blue-500"
           labelClassName="text-white"
         />
