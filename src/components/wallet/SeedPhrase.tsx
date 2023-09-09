@@ -54,7 +54,7 @@ export const SeedPhraseWordList = memo(
                     ? inputRefs?.current[id + 1]?.focus()
                     : undefined
                 }
-                // value={seedPhrase[id]}
+                defaultValue={seedPhrase[id]}
                 onChangeText={(text) => handleTextChange(id, text)}
               />
             ) : (
