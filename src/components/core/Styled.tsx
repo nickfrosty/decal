@@ -11,6 +11,16 @@ export type TextInputProps = DefaultTextInput["props"];
 export function MonoText(props: TextProps) {
   return <Text {...props} style={[props.style, { fontFamily: "SpaceMono" }]} />;
 }
+export function MinorText(props: TextProps) {
+  const theme = useColorScheme() ?? "light";
+
+  return (
+    <Text
+      {...props}
+      style={[props.style, { color: Colors[theme].minorColor }]}
+    />
+  );
+}
 
 export function ViewBox({ children, style, ...props }: ViewProps) {
   const theme = useColorScheme() ?? "light";
