@@ -37,13 +37,14 @@ export async function getAllUserWalletDetails(): Promise<UserWalletDetails[]> {
 }
 
 /**
- * save a user's non-secure wallet details (including update the existing item, if it already exists)
+ * save a user's non-secure wallet details (including updating an existing item if it already exists)
  */
-export async function saveUserWalletDetails(newDetails: UserWalletDetails) {
+export async function saveUserWalletDetails(
+  newDetails: UserWalletDetails,
+  returnData: boolean = false,
+) {
   // get the current wallet details
   const data = await getAllUserWalletDetails();
-
-  console.log("current:", data);
 
   // determine if the `newDetails` already exists or not
   const existingIndex = data.findIndex(
@@ -54,14 +55,12 @@ export async function saveUserWalletDetails(newDetails: UserWalletDetails) {
   if (existingIndex >= 0) data[existingIndex] = newDetails;
   else data.push(newDetails);
 
-  console.log("new data:", data);
-
   // actually update the stored data
   await AsyncStorage.setItem(USER_WALLET_DETAILS_KEY, JSON.stringify(data));
 
   // verify the new data was correctly saved
   const verify = await getAllUserWalletDetails();
   if (JSON.stringify(verify) === JSON.stringify(data)) {
-    return data;
+    return returnData ? data : true;
   } else return false;
 }
