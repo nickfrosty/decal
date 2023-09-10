@@ -24,20 +24,19 @@ export function ListItem({
   isTop,
   label,
   style,
+  children,
   ...props
 }: BaseProps & TouchableOpacityProps) {
   return (
     <TouchableOpacity
-      className="flex flex-row items-center justify-between px-4 py-3 border-b border-b-transparent"
+      className="flex flex-row items-center justify-between px-4 py-3 border-y border-y-transparent"
       style={[
-        isTop && {
-          borderBottomColor: useThemeColor("borderColor"),
-        },
+        !isTop && { borderTopColor: useThemeColor("borderColor") },
         style,
       ]}
       {...props}
     >
-      <Text className="text-lg">{label}</Text>
+      {children ? children : <Text className="text-lg">{label}</Text>}
     </TouchableOpacity>
   );
 }
@@ -53,9 +52,7 @@ export function ListItemLink({
       <Link
         className="flex flex-row items-center justify-between px-4 py-3 border-b border-b-transparent"
         style={[
-          isTop && {
-            borderBottomColor: useThemeColor("borderColor"),
-          },
+          !isTop && { borderTopColor: useThemeColor("borderColor") },
           style,
         ]}
         {...props}
