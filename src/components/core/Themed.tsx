@@ -13,11 +13,6 @@ import {
   ScrollView as DefaultScrollView,
 } from "react-native";
 
-import { DrawerNavigationProp } from "@react-navigation/drawer";
-import { Bars3Icon } from "react-native-heroicons/solid";
-import { useNavigation } from "expo-router/src/useNavigation";
-import { DrawerActions, ParamListBase } from "@react-navigation/native";
-
 type ThemeProps = {
   lightColor?: string;
   darkColor?: string;
@@ -75,18 +70,6 @@ export function ScrollView(props: ScrollViewProps) {
         {children}
       </View>
     </DefaultScrollView>
-  );
-}
-
-export function DrawerToggleButton({}) {
-  const navigation = useNavigation<DrawerNavigationProp<ParamListBase>>();
-
-  return (
-    <Bars3Icon
-      color={useThemeColor("iconColor")}
-      style={MasterStyles.icon}
-      onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}
-    />
   );
 }
 

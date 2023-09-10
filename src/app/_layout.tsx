@@ -21,8 +21,7 @@ export {
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: "(drawer)",
-  // initialRouteName: "(tabs)",
+  initialRouteName: "(tabs)",
 };
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -59,14 +58,14 @@ function RootLayoutNav() {
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <ConnectionProvider>
         <Stack screenOptions={{}}>
-          <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen
             name="wallet/generate"
             options={{ headerShown: false }}
           />
 
           {/* <Stack.Screen name="(tabs)" options={{ headerShown: false }} /> */}
-          {/* <Stack.Screen name="settings" options={{ headerShown: false }} /> */}
+          <Stack.Screen name="settings" options={{ headerShown: false }} />
           {/* <Stack.Screen name="modal" options={{ presentation: "modal" }} /> */}
           <Stack.Screen name="send" options={{ presentation: "modal" }} />
           <Stack.Screen name="request" options={{ presentation: "modal" }} />

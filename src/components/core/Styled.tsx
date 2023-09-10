@@ -2,8 +2,17 @@ import { forwardRef } from "react";
 import { TouchableOpacity as DefaultTouchableOpacity } from "react-native-gesture-handler";
 
 import { useColorScheme, TextInput as DefaultTextInput } from "react-native";
-import { Text, TextProps, View, ViewProps } from "@/components/core/Themed";
+import {
+  MasterStyles,
+  Text,
+  TextProps,
+  View,
+  ViewProps,
+  useThemeColor,
+} from "@/components/core/Themed";
 import Colors from "@/constants/Colors";
+import { Link } from "expo-router";
+import { Bars3Icon } from "react-native-heroicons/solid";
 
 export type TouchableOpacityProps = DefaultTouchableOpacity["props"];
 export type TextInputProps = DefaultTextInput["props"];
@@ -70,3 +79,16 @@ export const TextInput = forwardRef<DefaultTextInput, TextInputProps>(
     );
   },
 );
+
+export function SettingsToggleButton({}) {
+  return (
+    <Link href="/settings/" asChild>
+      <TouchableOpacity>
+        <Bars3Icon
+          color={useThemeColor("iconColor")}
+          style={MasterStyles.icon}
+        />
+      </TouchableOpacity>
+    </Link>
+  );
+}

@@ -2,12 +2,7 @@ import { Link, Tabs } from "expo-router";
 import { useColorScheme } from "react-native";
 
 import Colors from "@/constants/Colors";
-import {
-  DrawerToggleButton,
-  MasterStyles,
-  View,
-  useThemeColor,
-} from "@/components/core/Themed";
+import { MasterStyles, View, useThemeColor } from "@/components/core/Themed";
 
 import {
   WalletIcon,
@@ -23,7 +18,10 @@ import {
   UserCircleIcon,
   WrenchScrewdriverIcon,
 } from "react-native-heroicons/outline";
-import { TouchableOpacity } from "@/components/core/Styled";
+import {
+  SettingsToggleButton,
+  TouchableOpacity,
+} from "@/components/core/Styled";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -37,7 +35,7 @@ export default function TabLayout() {
           marginBottom: 4,
         },
         tabBarShowLabel: false,
-        headerLeft: () => <DrawerToggleButton />,
+        headerLeft: () => <SettingsToggleButton />,
       }}
     >
       <Tabs.Screen
