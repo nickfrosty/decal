@@ -57,16 +57,15 @@ function RootLayoutNav() {
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <ConnectionProvider>
-        <Stack screenOptions={{}}>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen
-            name="wallet/generate"
-            options={{ headerShown: false }}
-          />
-
-          {/* <Stack.Screen name="(tabs)" options={{ headerShown: false }} /> */}
-          <Stack.Screen name="settings" options={{ headerShown: false }} />
+        <Stack
+          screenOptions={{
+            headerShown: false,
+          }}
+        >
+          <Stack.Screen name="(tabs)" options={{}} />
+          <Stack.Screen name="wallet/generate" options={{}} />
           {/* <Stack.Screen name="modal" options={{ presentation: "modal" }} /> */}
+          {/* <Stack.Screen name="settings" options={{}} /> */}
           <Stack.Screen name="send" options={{ presentation: "modal" }} />
           <Stack.Screen name="request" options={{ presentation: "modal" }} />
         </Stack>
