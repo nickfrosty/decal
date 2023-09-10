@@ -1,93 +1,30 @@
-import { Link, Stack } from "expo-router";
-import { StyleSheet } from "react-native";
-
-import {
-  Text,
-  View,
-  ScrollView,
-  useThemeColor,
-} from "@/components/core/Themed";
+import { Stack } from "expo-router";
+import { MinorText } from "@/components/core/Styled";
+import { ScrollView, HeaderStyles } from "@/components/core/Themed";
+import { ListContainer, ListItemLink } from "@/components/core/ListContainer";
 
 export default function Screen() {
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <Stack.Screen
-          options={{
-            headerShown: true,
-            title: "Settings",
-          }}
+    <ScrollView style={HeaderStyles.container}>
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          title: "Settings",
+        }}
+      />
+
+      <MinorText className="text-base text-center">
+        Developer Settings
+      </MinorText>
+
+      <ListContainer>
+        <ListItemLink
+          isTop={true}
+          label="Change wallet"
+          href={"/settings/changeWallet"}
         />
-
-        <Text
-          className="text-base"
-          style={{ color: useThemeColor("minorColor") }}
-        >
-          Developer Settings
-        </Text>
-
-        <View
-          style={{
-            // flex: 1,
-            width: "100%",
-            borderRadius: 8,
-            overflow: "hidden",
-            borderWidth: 1,
-            borderColor: useThemeColor("borderColor"),
-          }}
-        >
-          <Link
-            href={"/settings/changeWallet"}
-            style={{
-              flexDirection: "row",
-              paddingVertical: 12,
-              paddingHorizontal: 16,
-              // borderColor: useThemeColor("borderColor"),
-              // backgroundColor: useThemeColor("backgroundColor"),
-              gap: 4,
-            }}
-          >
-            <Text style={styles.text}>Change wallet</Text>
-          </Link>
-        </View>
-
-        <View
-          style={styles.separator}
-          lightColor="#eee"
-          darkColor="rgba(255,255,255,0.1)"
-        />
-      </View>
+        <ListItemLink label="Change wallet" href={"/settings/changeWallet"} />
+      </ListContainer>
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    // alignItems: "center",
-    padding: 16,
-    gap: 10,
-    flexGrow: 1,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
-    marginHorizontal: "auto",
-  },
-  text: {
-    fontSize: 18,
-    // fontWeight: "400",
-  },
-  label: {
-    fontSize: 16,
-    // marginHorizontal: 10,
-    // marginBottom: 2,
-    fontWeight: "500",
-    // color: useThemeColor("minorColor"),
-  },
-});
