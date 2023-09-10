@@ -21,7 +21,7 @@ import {
 export default function Screen() {
   const router = useRouter();
   const theme = useColorScheme() ?? "light";
-  const { connection } = useConnection();
+  const { connection, setUserWallet, userWallet } = useConnection();
 
   //
   const [maxAccountsToShow, setMaxAccountsToShow] = useState<number>(0);
@@ -32,6 +32,16 @@ export default function Screen() {
     const successful = await importAccountsFromSeedPhrase(accounts);
 
     if (successful) {
+      // auto select set the selected user wallet (if one was not already selected)
+      // todo: should this always auto select? we could wrap in an `if` block?
+      // if (!userWallet.address) {
+      setUserWallet({
+        address: accounts[0].publicKey.toBase58(),
+        label: accounts[0].label,
+      });
+      // }
+      // todo: allow the user to select which auto selects?
+
       return router.push("/(drawer)/(tabs)/");
     } else Alert.alert("Unable to import accounts");
   }
