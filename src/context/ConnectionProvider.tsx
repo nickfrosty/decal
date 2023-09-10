@@ -3,13 +3,13 @@
  */
 
 import { STORAGE_KEY } from "@/lib/constants";
+import { UserWalletDetails } from "@/lib/utils/wallet/details";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   Connection,
   clusterApiUrl,
   type ConnectionConfig,
   Cluster,
-  PublicKey,
 } from "@solana/web3.js";
 import React, {
   type FC,
@@ -28,8 +28,6 @@ const DEFAULT_SETTINGS: NetworkConnectionSettings = {
   config: { commitment: "confirmed" },
 };
 
-const DEFAULT_WALLET = "11111111111111111111111111111111";
-
 type NetworkConnectionSettings = {
   cluster: Cluster;
   endpoint: string;
@@ -40,8 +38,8 @@ interface ConnectionContextState {
   connection: Connection;
   settings: NetworkConnectionSettings;
   setSettings: React.Dispatch<React.SetStateAction<NetworkConnectionSettings>>;
-  userWallet: PublicKey;
-  setUserWallet: React.Dispatch<React.SetStateAction<PublicKey>>;
+  userWallet: UserWalletDetails;
+  setUserWallet: React.Dispatch<React.SetStateAction<UserWalletDetails>>;
 }
 
 export const ConnectionProvider: FC<{
@@ -50,9 +48,10 @@ export const ConnectionProvider: FC<{
   // track the user's connection settings, and allow updating them
   const [settings, setSettings] =
     useState<NetworkConnectionSettings>(DEFAULT_SETTINGS);
-  const [userWallet, setUserWallet] = useState<PublicKey>(
-    new PublicKey(DEFAULT_WALLET),
-  );
+  const [userWallet, setUserWallet] = useState<UserWalletDetails>({
+    address: "",
+    // label: ""
+  });
 
   // auto load the network connection configuration from local storage
   useEffect(() => {
@@ -60,7 +59,7 @@ export const ConnectionProvider: FC<{
       if (!!data) setSettings(JSON.parse(data));
     });
     AsyncStorage.getItem(STORAGE_KEY.userWallet).then((data) => {
-      if (!!data) setUserWallet(new PublicKey(data ?? DEFAULT_WALLET));
+      if (!!data) setUserWallet(JSON.parse(data));
     });
   }, []);
 
@@ -71,7 +70,7 @@ export const ConnectionProvider: FC<{
 
   // auto save the settings when they are changed
   useEffect(() => {
-    AsyncStorage.setItem(STORAGE_KEY.userWallet, userWallet.toBase58());
+    AsyncStorage.setItem(STORAGE_KEY.userWallet, JSON.stringify(userWallet));
   }, [userWallet]);
 
   // create a connection to the blockchain
