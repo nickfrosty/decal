@@ -32,12 +32,15 @@ export default function Screen() {
     const successful = await importAccountsFromSeedPhrase(accounts);
 
     if (successful) {
+      // locate an account that was imported
+      const firstAccount = accounts.filter((item) => item.shouldImport)[0];
+
       // auto select set the selected user wallet (if one was not already selected)
       // todo: should this always auto select? we could wrap in an `if` block?
       // if (!userWallet.address) {
       setUserWallet({
-        address: accounts[0].publicKey.toBase58(),
-        label: accounts[0].label,
+        address: firstAccount.publicKey.toBase58(),
+        label: firstAccount.label,
       });
       // }
       // todo: allow the user to select which auto selects?
