@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { View, ScrollView } from "@/components/core/Themed";
+import { View, ScrollView, ViewProps } from "@/components/core/Themed";
 
 const styles = StyleSheet.create({
   container: {
@@ -9,10 +9,10 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function DefaultLayout(props: any) {
+export default function DefaultLayout(props: ViewProps) {
   return (
     <ScrollView>
-      <View style={styles.container} {...props} />
+      <View style={[styles.container, props.style]} {...props} />
     </ScrollView>
   );
 }
