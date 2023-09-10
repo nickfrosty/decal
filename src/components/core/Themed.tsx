@@ -63,14 +63,18 @@ export function View(props: ViewProps) {
 }
 
 export function ScrollView(props: ScrollViewProps) {
-  const { style, lightColor, darkColor, ...otherProps } = props;
+  const { style, lightColor, darkColor, children, ...otherProps } = props;
   const backgroundColor = useThemeColor("background", {
     light: lightColor,
     dark: darkColor,
   });
 
   return (
-    <DefaultScrollView style={[{ backgroundColor }, style]} {...otherProps} />
+    <DefaultScrollView>
+      <View style={[{ backgroundColor }, style]} {...otherProps}>
+        {children}
+      </View>
+    </DefaultScrollView>
   );
 }
 
@@ -93,5 +97,12 @@ export const HeaderStyles = StyleSheet.create({
     margin: 3,
     resizeMode: "contain",
     marginHorizontal: 12,
+  },
+  container: {
+    flex: 1,
+    // alignItems: "center",
+    padding: 16,
+    gap: 10,
+    flexGrow: 1,
   },
 });
