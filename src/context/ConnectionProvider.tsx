@@ -28,6 +28,8 @@ const DEFAULT_SETTINGS: NetworkConnectionSettings = {
   config: { commitment: "confirmed" },
 };
 
+const DEFAULT_WALLET = "11111111111111111111111111111111";
+
 type NetworkConnectionSettings = {
   cluster: Cluster;
   endpoint: string;
@@ -48,7 +50,9 @@ export const ConnectionProvider: FC<{
   // track the user's connection settings, and allow updating them
   const [settings, setSettings] =
     useState<NetworkConnectionSettings>(DEFAULT_SETTINGS);
-  const [userWallet, setUserWallet] = useState<PublicKey>(new PublicKey(""));
+  const [userWallet, setUserWallet] = useState<PublicKey>(
+    new PublicKey(DEFAULT_WALLET),
+  );
 
   // auto load the network connection configuration from local storage
   useEffect(() => {
@@ -56,7 +60,7 @@ export const ConnectionProvider: FC<{
       if (!!data) setSettings(JSON.parse(data));
     });
     AsyncStorage.getItem(STORAGE_KEY.userWallet).then((data) => {
-      if (!!data) setUserWallet(new PublicKey(data ?? ""));
+      if (!!data) setUserWallet(new PublicKey(data ?? DEFAULT_WALLET));
     });
   }, []);
 
