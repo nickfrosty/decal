@@ -8,7 +8,7 @@
  */
 export function shortText(
   text: string,
-  length: number = 4,
+  length: number = 6,
   separator: string = "...",
 ) {
   return (
