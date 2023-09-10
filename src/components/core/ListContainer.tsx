@@ -1,6 +1,11 @@
 import { Link, LinkProps } from "expo-router";
-import { TouchableOpacity } from "@/components/core/Styled";
+import {
+  TouchableOpacity,
+  TouchableOpacityProps,
+} from "@/components/core/Styled";
 import { Text, View, useThemeColor, ViewProps } from "@/components/core/Themed";
+
+type BaseProps = { label: string; isTop?: boolean };
 
 export function ListContainer(props: ViewProps) {
   return (
@@ -15,14 +20,34 @@ export function ListContainer(props: ViewProps) {
   );
 }
 
-type ListItemLinkProps = LinkProps<string> & { label: string; isTop?: boolean };
+export function ListItem({
+  isTop,
+  label,
+  style,
+  ...props
+}: BaseProps & TouchableOpacityProps) {
+  return (
+    <TouchableOpacity
+      className="flex flex-row items-center justify-between px-4 py-3 border-b border-b-transparent"
+      style={[
+        isTop && {
+          borderBottomColor: useThemeColor("borderColor"),
+        },
+        style,
+      ]}
+      {...props}
+    >
+      <Text className="text-lg">{label}</Text>
+    </TouchableOpacity>
+  );
+}
 
 export function ListItemLink({
   isTop,
   label,
   style,
   ...props
-}: ListItemLinkProps) {
+}: BaseProps & LinkProps<string>) {
   return (
     <TouchableOpacity>
       <Link
