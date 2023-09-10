@@ -8,6 +8,7 @@
     "ios": "expo run:ios",
     "web": "expo start --clear --web",
     "build:preview:android": "eas build -p android --profile preview",
+    "build:dev": "eas build --platform android --profile development --local",
     "prettier:check": "prettier -c .",
     "prettier:fix": "prettier -w .",
     "test": "jest --watchAll"
