@@ -55,7 +55,7 @@ export const TouchableOpacity = forwardRef<
   DefaultTouchableOpacity,
   TouchableOpacityProps
 >((props: TouchableOpacityProps, ref) => {
-  return <DefaultTouchableOpacity {...props} activeOpacity={0.7} />;
+  return <DefaultTouchableOpacity ref={ref} {...props} activeOpacity={0.7} />;
 });
 
 export const TextInput = forwardRef<DefaultTextInput, TextInputProps>(
