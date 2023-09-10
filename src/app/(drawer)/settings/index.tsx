@@ -1,4 +1,4 @@
-import { Stack } from "expo-router";
+import { Link, Stack } from "expo-router";
 import { StyleSheet } from "react-native";
 
 import {
@@ -14,7 +14,7 @@ export default function Screen() {
       <View style={styles.container}>
         <Stack.Screen
           options={{
-            headerShown: false,
+            headerShown: true,
             title: "Settings",
           }}
         />
@@ -36,7 +36,8 @@ export default function Screen() {
             borderColor: useThemeColor("borderColor"),
           }}
         >
-          <View
+          <Link
+            href={"/settings/changeWallet"}
             style={{
               flexDirection: "row",
               paddingVertical: 12,
@@ -46,8 +47,8 @@ export default function Screen() {
               gap: 4,
             }}
           >
-            <Text style={styles.text}>Settings home</Text>
-          </View>
+            <Text style={styles.text}>Change wallet</Text>
+          </Link>
         </View>
 
         <View

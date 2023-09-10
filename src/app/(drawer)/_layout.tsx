@@ -5,14 +5,14 @@ export default function Layout() {
   return (
     <Drawer
       screenOptions={{
-        headerShown: true,
+        headerShown: false,
         headerLeft: () => <DrawerToggleButton />,
       }}
     >
       <Drawer.Screen
         name="(tabs)"
         options={{
-          headerShown: false,
+          // headerShown: false,
           drawerLabel: "Home",
           title: "Home",
           // headerRight: () =>{}
@@ -21,7 +21,7 @@ export default function Layout() {
       <Drawer.Screen
         name="settings"
         options={{
-          headerShown: true,
+          // headerShown: false,
           drawerLabel: "Settings",
           title: "Settings",
         }}
