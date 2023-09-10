@@ -4,7 +4,7 @@ import { useColorScheme } from "react-native";
 import Colors from "@/constants/Colors";
 import {
   DrawerToggleButton,
-  HeaderStyles,
+  MasterStyles,
   View,
   useThemeColor,
 } from "@/components/core/Themed";
@@ -50,7 +50,7 @@ export default function TabLayout() {
                 <TouchableOpacity>
                   <QrCodeIcon
                     color={useThemeColor("iconColor")}
-                    style={HeaderStyles.icon}
+                    style={MasterStyles.icon}
                   />
                 </TouchableOpacity>
               </Link>

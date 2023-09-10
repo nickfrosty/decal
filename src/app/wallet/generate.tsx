@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import DefaultLayout from "@/components/core/DefaultLayout";
 
 import {
-  HeaderStyles,
+  MasterStyles,
   Text,
   View,
   useThemeColor,
@@ -61,7 +61,7 @@ export default function Screen() {
           headerRight: () => (
             <TouchableOpacity>
               <ArrowPathIcon
-                style={HeaderStyles.icon}
+                style={MasterStyles.icon}
                 color={useThemeColor("iconColor")}
                 onPress={() => {
                   // first clear the seed phrase

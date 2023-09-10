@@ -84,13 +84,13 @@ export function DrawerToggleButton({}) {
   return (
     <Bars3Icon
       color={useThemeColor("iconColor")}
-      style={HeaderStyles.icon}
+      style={MasterStyles.icon}
       onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}
     />
   );
 }
 
-export const HeaderStyles = StyleSheet.create({
+export const MasterStyles = StyleSheet.create({
   icon: {
     height: 28,
     width: 28,

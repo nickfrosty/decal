@@ -1,11 +1,11 @@
 import { Stack } from "expo-router";
 import { MinorText } from "@/components/core/Styled";
-import { ScrollView, HeaderStyles } from "@/components/core/Themed";
+import { ScrollView, MasterStyles } from "@/components/core/Themed";
 import { ListContainer, ListItemLink } from "@/components/core/ListContainer";
 
 export default function Screen() {
   return (
-    <ScrollView style={HeaderStyles.container}>
+    <ScrollView style={MasterStyles.container}>
       <Stack.Screen
         options={{
           headerShown: true,
