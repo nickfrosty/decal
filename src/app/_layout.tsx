@@ -8,7 +8,10 @@ import { useFonts } from "expo-font";
 import { useEffect } from "react";
 import { SplashScreen, Stack } from "expo-router";
 import { useColorScheme } from "react-native";
-import { ConnectionProvider } from "@/context/ConnectionProvider";
+import {
+  ConnectionProvider,
+  useConnection,
+} from "@/context/ConnectionProvider";
 
 // import various global libraries
 import "@/styles/global.css";
@@ -28,6 +31,7 @@ export const unstable_settings = {
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
+  const colorScheme = useColorScheme();
   const [loaded, error] = useFonts({
     SpaceMono: require("@@/assets/fonts/SpaceMono-Regular.ttf"),
     ...FontAwesome.font,
@@ -48,24 +52,26 @@ export default function RootLayout() {
     return null;
   }
 
-  return <RootLayoutNav />;
-}
-
-function RootLayoutNav() {
-  const colorScheme = useColorScheme();
-
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <ConnectionProvider>
-        <Stack screenOptions={{}}>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="wallet/generate" options={{}} />
-          {/* <Stack.Screen name="modal" options={{ presentation: "modal" }} /> */}
-          {/* <Stack.Screen name="settings" options={{}} /> */}
-          <Stack.Screen name="send" options={{ presentation: "modal" }} />
-          <Stack.Screen name="request" options={{ presentation: "modal" }} />
-        </Stack>
+        <RootLayoutNav />
       </ConnectionProvider>
     </ThemeProvider>
+  );
+}
+
+function RootLayoutNav() {
+  const { userWallet } = useConnection();
+
+  return (
+    <Stack screenOptions={{}}>
+      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      <Stack.Screen name="wallet/generate" options={{}} />
+      {/* <Stack.Screen name="modal" options={{ presentation: "modal" }} /> */}
+      {/* <Stack.Screen name="settings" options={{}} /> */}
+      <Stack.Screen name="send" options={{ presentation: "modal" }} />
+      <Stack.Screen name="request" options={{ presentation: "modal" }} />
+    </Stack>
   );
 }
