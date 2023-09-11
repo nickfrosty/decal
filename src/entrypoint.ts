@@ -3,6 +3,8 @@
  *
  * it loads all the shims, then kicks out to
  * expo-router to do its magic
+ *
+ * Inspiration: https://github.com/expo/expo/issues/17270#issuecomment-1684266602
  */
 
 import "react-native-url-polyfill/auto";
