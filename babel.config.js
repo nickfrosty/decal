@@ -8,10 +8,9 @@ module.exports = function (api) {
         {
           // add custom resolvers to fix node->react native library resolution
           alias: {
+            crypto: "expo-crypto",
             buffer: "buffer",
-            // buffer: "@craftzdog/react-native-buffer",
             stream: "stream-browserify",
-            crypto: "react-native-quick-crypto",
           },
         },
       ],
