@@ -15,7 +15,6 @@ import {
 
 // import various global libraries
 import "@/styles/global.css";
-import "@/shims";
 
 export {
   // Catch any errors thrown by the Layout component.
