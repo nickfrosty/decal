@@ -15,7 +15,7 @@ import { DEFAULT_SEED_PHRASE_WORD_COUNT } from "@/lib/utils/wallet/constants";
 export default function Screen() {
   // track the state of the seed phrase entered by the user
   const [seedPhrase, setSeedPhrase] = useState<string[]>(
-    new Array(DEFAULT_SEED_PHRASE_WORD_COUNT).fill(""),
+    new Array(DEFAULT_SEED_PHRASE_WORD_COUNT).fill("derp"),
   );
 
   const router = useRouter();

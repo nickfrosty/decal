@@ -54,6 +54,8 @@ export default function Screen() {
       try {
         const accountDetails = await getAccountImportDetails(connection);
 
+        console.log("primary account:", accountDetails[0]);
+
         const importCounter = accountDetails.filter(
           (account) =>
             account.shouldImport || account.balance > 0 || account.index == 0,
