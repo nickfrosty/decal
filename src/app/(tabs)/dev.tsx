@@ -16,8 +16,8 @@ export default function Screen() {
 
         <View className="flex flex-row items-center justify-center">
           <GhostLink href="/transaction/details" label="Details" />
-          <GhostLink href="/transaction/sign" label="Sign" />
-          <GhostLink href="/transaction/request" label="Request" />
+          <GhostLink href="/transaction/signMessage" label="Sign" />
+          <GhostLink href="/transaction/requestApproval" label="Request" />
         </View>
 
         <View
