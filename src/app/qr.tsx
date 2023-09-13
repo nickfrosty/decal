@@ -1,6 +1,6 @@
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { Platform, StyleSheet } from "react-native";
+import { Alert, Platform, StyleSheet } from "react-native";
 
 import { useEffect, useState } from "react";
 import {
@@ -62,6 +62,9 @@ export default function Screen() {
   function handleBarcodeScan({ type, data }: BarCodeEvent) {
     console.warn("type:", type);
     console.warn(data);
+
+    Alert.alert(data);
+    Alert.alert(type);
 
     setScanData(data);
   }
