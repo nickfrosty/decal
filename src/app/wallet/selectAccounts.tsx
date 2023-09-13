@@ -47,7 +47,7 @@ export default function Screen() {
       // }
       // todo: allow the user to select which auto selects?
 
-      return router.push("/(tabs)/");
+      return router.push("/(wallet)/");
     } else Alert.alert("Unable to import accounts");
   }
 

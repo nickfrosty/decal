@@ -47,7 +47,7 @@ export default function Screen() {
         <GhostLink href="/wallet/generate" label="Generate" />
       </View>
 
-      <EditScreenInfo path="app/(tabs)/index.tsx" />
+      <EditScreenInfo path="app/(wallet)/index.tsx" />
     </ScrollView>
   );
 }
