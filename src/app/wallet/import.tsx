@@ -1,4 +1,4 @@
-import { Link, Stack, useNavigation, useRouter } from "expo-router";
+import { Stack, useRouter } from "expo-router";
 import { Alert } from "react-native";
 import { useState } from "react";
 import DefaultLayout from "@/components/core/DefaultLayout";
@@ -15,11 +15,14 @@ import { DEFAULT_SEED_PHRASE_WORD_COUNT } from "@/lib/utils/wallet/constants";
 export default function Screen() {
   // track the state of the seed phrase entered by the user
   const [seedPhrase, setSeedPhrase] = useState<string[]>(
-    new Array(DEFAULT_SEED_PHRASE_WORD_COUNT).fill("derp"),
+    process.env?.EXPO_PUBLIC_DEBUG_SEED_PHRASE
+      ? process.env.EXPO_PUBLIC_DEBUG_SEED_PHRASE.split(" ")
+      : new Array(DEFAULT_SEED_PHRASE_WORD_COUNT).fill(
+          process.env.EXPO_PUBLIC_DEBUG_SEED_WORD,
+        ),
   );
 
   const router = useRouter();
-  const navigation = useNavigation();
 
   /**
    * handle the preflight checks of the seed phrase before sending to the "import accounts" screen
