@@ -7,7 +7,7 @@ import { shortText } from "@/lib/utils";
 type InstructionDetailsProps = {
   index: number;
   ix: MessageCompiledInstruction;
-  programId?: PublicKey;
+  programId: string;
 };
 
 export const InstructionDetails = memo(
@@ -20,10 +20,7 @@ export const InstructionDetails = memo(
     return (
       <List key={index} className="mb-3">
         <ListItem isTopItem={true} title={`#${index} - Unknown program ID`} />
-        <ListItem
-          title="Program ID"
-          value={shortText(programId?.toBase58() || "[err]")}
-        />
+        <ListItem title="Program ID" value={shortText(programId || "[err]")} />
         <ListItem title="Data" value={fromByteArrayToBase64(ix.data)} />
 
         {/* todo: add the list of accounts included in the ix here */}
