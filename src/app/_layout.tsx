@@ -9,7 +9,7 @@ import { useEffect } from "react";
 import { SplashScreen, Stack } from "expo-router";
 import { useColorScheme } from "react-native";
 import { ConnectionProvider } from "@/context/ConnectionProvider";
-import { AuthProvider, useAuth } from "@/context/AuthProvider";
+import { AuthProvider } from "@/context/AuthProvider";
 
 // import various global libraries
 import "@/styles/global.css";
@@ -20,7 +20,7 @@ export {
 } from "expo-router";
 
 export const unstable_settings = {
-  // Ensure that reloading on `/modal` keeps a back button present.
+  // Ensure that reloading on `/welcome` keeps a back button present.
   initialRouteName: "(wallet)",
 };
 
@@ -39,49 +39,27 @@ export default function RootLayout() {
     if (error) throw error;
   }, [error]);
 
-  if (!loaded) {
-    return null;
-  }
-
-  return (
-    <AuthProvider>
-      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-        <ConnectionProvider>
-          <RootLayoutNav />
-        </ConnectionProvider>
-      </ThemeProvider>
-    </AuthProvider>
-  );
-}
-
-function RootLayoutNav() {
-  const { walletAddress, loaded } = useAuth();
-
   useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync();
     }
   }, [loaded]);
 
+  // do nothing while the assets are still loading
   if (!loaded) return null;
 
-  //
-  if (loaded && typeof walletAddress == "undefined") {
-    return (
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="wallet/import" options={{}} />
-      </Stack>
-    );
-  }
-
   return (
-    <Stack screenOptions={{}}>
-      <Stack.Screen name="(wallet)" options={{ headerShown: false }} />
-      <Stack.Screen name="wallet/generate" options={{}} />
-      {/* <Stack.Screen name="modal" options={{ presentation: "modal" }} /> */}
-      {/* <Stack.Screen name="settings" options={{}} /> */}
-      <Stack.Screen name="send" options={{ presentation: "modal" }} />
-      <Stack.Screen name="request" options={{ presentation: "modal" }} />
-    </Stack>
+    <AuthProvider>
+      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+        <ConnectionProvider>
+          <Stack
+            screenOptions={{
+              // comment for better diffs
+              headerShown: false,
+            }}
+          />
+        </ConnectionProvider>
+      </ThemeProvider>
+    </AuthProvider>
   );
 }

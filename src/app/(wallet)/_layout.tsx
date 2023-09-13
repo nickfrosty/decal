@@ -1,5 +1,6 @@
-import { Link, Tabs } from "expo-router";
+import { Link, Tabs, Redirect } from "expo-router";
 import { useColorScheme } from "react-native";
+import { useAuth } from "@/context/AuthProvider";
 
 import Colors from "@/constants/Colors";
 import { MasterStyles, View, useThemeColor } from "@/components/core/Themed";
@@ -24,7 +25,16 @@ import {
 } from "@/components/core/Styled";
 
 export default function TabLayout() {
+  const { walletAddress, loaded } = useAuth();
   const colorScheme = useColorScheme();
+
+  // do nothing while the app is still loading
+  if (!loaded) return null;
+
+  // after loaded, handle the auth state
+  if (loaded && typeof walletAddress == "undefined") {
+    return <Redirect href={"/welcome"} />;
+  }
 
   return (
     <Tabs
