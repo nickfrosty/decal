@@ -30,7 +30,7 @@ export default function Screen() {
 
         <View className="flex flex-row items-center justify-center">
           <GhostLink href="/search" label="Search" />
-          {/* <GhostLink href="/wallet/generate" label="Generate" /> */}
+          {/* <GhostLink href="/accounts/seedPhrase/generate" label="Generate" /> */}
           {/* <GhostLink href="/transaction/sign" label="Sign" /> */}
           {/* <GhostLink href="/transaction/request" label="Request" /> */}
         </View>

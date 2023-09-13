@@ -13,6 +13,8 @@ import { saveTempSeedPhraseToSecureStore } from "@/lib/utils/wallet/import";
 import { DEFAULT_SEED_PHRASE_WORD_COUNT } from "@/lib/utils/wallet/constants";
 
 export default function Screen() {
+  const router = useRouter();
+
   // track the state of the seed phrase entered by the user
   const [seedPhrase, setSeedPhrase] = useState<string[]>(
     process.env?.EXPO_PUBLIC_DEBUG_SEED_PHRASE
@@ -21,8 +23,6 @@ export default function Screen() {
           process.env.EXPO_PUBLIC_DEBUG_SEED_WORD,
         ),
   );
-
-  const router = useRouter();
 
   /**
    * handle the preflight checks of the seed phrase before sending to the "import accounts" screen
@@ -50,7 +50,7 @@ export default function Screen() {
         setSeedPhrase(new Array(seedPhrase.length).fill(""));
 
         // note: we use replace to prevent the user from going back to the seed phrase
-        return router.replace("/wallet/selectAccounts");
+        return router.replace("/accounts/seedPhrase/selectAccounts");
       } else throw Error("Unable to securely save your seed phrase");
     } catch (err) {
       console.warn(err);
@@ -63,7 +63,7 @@ export default function Screen() {
       <Stack.Screen
         options={{
           // comment for better diffs
-          title: "Import wallet using a seed phrase",
+          title: "Import seed phrase",
           headerShown: true,
           // headerLeft: () => <></>,
           headerRight: () => <></>,

@@ -1,6 +1,6 @@
 import { Stack, useRouter } from "expo-router";
 import { Alert, useColorScheme } from "react-native";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, memo } from "react";
 import DefaultLayout from "@/components/core/DefaultLayout";
 
 import { Text, View } from "@/components/core/Themed";
@@ -29,8 +29,10 @@ export default function Screen() {
   const [maxAccountsToShow, setMaxAccountsToShow] = useState<number>(0);
   const [accounts, setAccounts] = useState<AccountImportDetails[]>([]);
 
-  //
-  async function handleImport() {
+  /**
+   * Process the account import request
+   */
+  const handleImport = useCallback(async () => {
     const successful = await importAccountsFromSeedPhrase(accounts);
 
     if (successful) {
@@ -47,16 +49,14 @@ export default function Screen() {
       // }
       // todo: allow the user to select which auto selects?
 
-      return router.push("/(wallet)/");
+      return router.push("/");
     } else Alert.alert("Unable to import accounts");
-  }
+  }, [accounts, walletDetails, setWalletDetails]);
 
   useEffect(() => {
     setTimeout(async () => {
       try {
         const accountDetails = await getAccountImportDetails(connection);
-
-        console.log("primary account:", accountDetails[0]);
 
         const importCounter = accountDetails.filter(
           (account) =>
@@ -105,9 +105,7 @@ export default function Screen() {
             account={account}
             shouldImport={account.shouldImport}
             onPress={(isChecked: boolean) => {
-              // todo: do nothing for index=0
-
-              console.log(account.publicKey.toBase58(), "-", isChecked);
+              // todo: do nothing for index=0 ?
 
               setAccounts((prev) =>
                 prev.map((item) => {
@@ -154,7 +152,7 @@ export default function Screen() {
 /**
  * Reusable screen header component
  */
-const ScreenHeader = () => (
+const ScreenHeader = memo(() => (
   <>
     <Stack.Screen
       options={{
@@ -176,4 +174,4 @@ const ScreenHeader = () => (
       description={"Select any of the following accounts to import"}
     />
   </>
-);
+));

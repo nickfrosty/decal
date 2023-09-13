@@ -1,6 +1,6 @@
 import { Stack } from "expo-router";
 import { Alert } from "react-native";
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo } from "react";
 import DefaultLayout from "@/components/core/DefaultLayout";
 
 import {
@@ -49,12 +49,12 @@ export default function Screen() {
   /**
    * Reusable screen header component
    */
-  const ScreenHeader = () => (
+  const ScreenHeader = memo(() => (
     <>
       <Stack.Screen
         options={{
           // comment for better diffs
-          title: "Generate a seed phrase",
+          title: "Generate seed phrase",
           headerShown: true,
           // headerLeft: () => null,
           // headerLeft: () => <></>,
@@ -88,7 +88,7 @@ export default function Screen() {
         }
       />
     </>
-  );
+  ));
 
   if (seedPhrase.length <= 0) {
     return (
@@ -127,7 +127,7 @@ export default function Screen() {
 
       <View className="flex flex-col gap-2">
         <Button
-          // href="/wallet/import"
+          // href="/accounts/seedPhrase/import"
           label="Continue"
           onPress={() => Alert.alert("continue")}
           className="bg-blue-500"

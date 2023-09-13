@@ -43,8 +43,8 @@ export default function Screen() {
       />
 
       <View className="flex flex-row items-center justify-center my-8">
-        <GhostLink href="/wallet/import" label="Import" />
-        <GhostLink href="/wallet/generate" label="Generate" />
+        <GhostLink href="/accounts/seedPhrase/import" label="Import" />
+        <GhostLink href="/accounts/seedPhrase/generate" label="Generate" />
       </View>
 
       <EditScreenInfo path="app/(wallet)/index.tsx" />
