@@ -25,14 +25,14 @@ import {
 } from "@/components/core/Styled";
 
 export default function TabLayout() {
-  const { walletAddress, loaded } = useAuth();
+  const { loaded, isAuthenticated } = useAuth();
   const colorScheme = useColorScheme();
 
   // do nothing while the app is still loading
   if (!loaded) return null;
 
   // after loaded, handle the auth state
-  if (loaded && typeof walletAddress == "undefined") {
+  if (loaded && !isAuthenticated) {
     return <Redirect href={"/welcome"} />;
   }
 
