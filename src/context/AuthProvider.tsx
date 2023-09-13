@@ -35,7 +35,7 @@ export const AuthProvider: FC<{
   // auto load the desired data on mount
   useEffect(() => {
     AsyncStorage.getItem(STORAGE_KEY.userWallet, (err, data) => {
-      console.log("data:", data);
+      // console.log("data:", data);
 
       if (!!data) setWalletDetails(JSON.parse(data));
 
@@ -46,20 +46,15 @@ export const AuthProvider: FC<{
 
   // auto save the settings when they are changed
   useEffect(() => {
-    console.log("effect update trigger");
     if (!loaded) return;
-
-    console.log("effect update", walletDetails);
 
     AsyncStorage.setItem(STORAGE_KEY.userWallet, JSON.stringify(walletDetails));
   }, [walletDetails]);
 
   // memoize the user's wallet address
   const walletAddress = useMemo(() => {
-    console.log("derp");
-
     if (loaded && !!walletDetails && !!walletDetails?.address) {
-      console.log("walletAddress set:", walletDetails?.address);
+      // console.log("walletAddress set:", walletDetails?.address);
       return new PublicKey(walletDetails.address);
     } else return undefined;
   }, [walletDetails, loaded]);
