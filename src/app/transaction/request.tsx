@@ -1,12 +1,28 @@
 import { Stack } from "expo-router";
-import { Alert, StyleSheet } from "react-native";
+import { Alert } from "react-native";
 
-import { Text, View, ScrollView } from "@/components/core/Themed";
-import { Button } from "@/components/core/buttons";
+import DefaultLayout from "@/components/core/DefaultLayout";
+import { Text, View } from "@/components/core/Themed";
+import { Button, GhostButton } from "@/components/core/buttons";
 import { List, ListItem } from "@/components/core/lists";
-import { shortText } from "@/lib/utils";
 import { HeroIcon, HeroTitleSection } from "@/components/ScreenHero";
 import { QuestionMarkCircleIcon } from "react-native-heroicons/outline";
+import { useSimulateTransaction } from "@/hooks/useSimulateTransaction";
+import {
+  Keypair,
+  PublicKey,
+  SystemProgram,
+  TransactionMessage,
+  VersionedTransaction,
+} from "@solana/web3.js";
+import { InstructionDetails } from "@/components/transactions/InstructionDetails";
+import { formatLamportsToSol, shortText } from "@/lib/utils";
+import { useMemo, useState } from "react";
+import { TouchableOpacity, ViewBox } from "@/components/core/Styled";
+import {
+  ChevronDoubleDownIcon,
+  ChevronDoubleUpIcon,
+} from "react-native-heroicons/solid";
 
 /**
  * todo: the follow is a general list of todo items
@@ -24,106 +40,153 @@ import { QuestionMarkCircleIcon } from "react-native-heroicons/outline";
  * - show the advanced transaction details by default when developer mode is enabled?
  */
 
+// const wallet = Keypair.generate().publicKey;
+const wallet = new PublicKey("Dp1Je1aJ9zifmHpbe64bbLabMqFsAsLnXnSsNSiNsNWL");
+console.log("wallet:", wallet.toBase58());
+
+const receiver = Keypair.generate().publicKey;
+// const receiver = new PublicKey("GQuioVe2yA6KZfstgmirAvugfUZBcdxSi7sHK7JGk3gk");
+console.log("receiver:", receiver.toBase58());
+
+const transaction = new VersionedTransaction(
+  new TransactionMessage({
+    payerKey: wallet,
+    instructions: [
+      // ix - #1
+      SystemProgram.transfer({
+        fromPubkey: wallet,
+        lamports: 10_000_000,
+        toPubkey: receiver,
+      }),
+      // ix - #2
+      // SystemProgram.transfer({
+      //   fromPubkey: wallet,
+      //   lamports: 1,
+      //   toPubkey: Keypair.generate().publicKey,
+      // }),
+    ],
+    // todo: I am intentionally setting no value
+    recentBlockhash: "",
+  }).compileToV0Message(),
+);
+
 export default function TransactionRequestScreen() {
+  // track some react state
+  const [showAdvancedDetails, setShowAdvancedDetails] = useState(true);
+
+  // construct the transaction simulation
+  const simulation = useSimulateTransaction({
+    // comment for better diffs
+    tx: transaction,
+  });
+
+  // memoize a nice label for the fee payer
+  const feePayerLabel = useMemo(() => {
+    const addr = simulation.accountAddresses[0] || "[err]";
+
+    if (addr === wallet.toBase58()) return "you";
+    else return shortText(addr);
+  }, [transaction.message]);
+
+  /**
+   * details to get from the simulation:
+   * - error message
+   * - logs
+   * - account state changes?
+   */
+
+  console.log("accountChanges:", simulation.accountChanges);
+
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <Stack.Screen
-          options={{
-            // comment for better diffs
-            title: "Transaction Request",
-          }}
+    <DefaultLayout>
+      <Stack.Screen
+        options={{
+          // comment for better diffs
+          title: "Transaction Request",
+        }}
+      />
+
+      <HeroIcon
+        background="bg-gray-300"
+        icon={<QuestionMarkCircleIcon size={40} color={"white"} />}
+        label="decal.app"
+      />
+
+      <HeroTitleSection
+        title={"Transaction Request"}
+        description={"You are being asked to approve a transaction"}
+      />
+
+      {/* todo: this should be themed */}
+      {!!simulation?.error && (
+        <ViewBox className="bg-red-500 border-red-700">
+          <Text className="text-base">
+            If approved, this transaction is still likely to fail!
+          </Text>
+        </ViewBox>
+      )}
+
+      {/* simple transaction details */}
+      <List>
+        {/* <ListItem isTopItem={true} title="Network" value={"Solana mainnet"} /> */}
+        <ListItem
+          isTopItem={true}
+          title="Network fee"
+          value={`${formatLamportsToSol(simulation.estimatedFee)} SOL`}
         />
+        <ListItem title="Fee payer" value={feePayerLabel} />
+      </List>
 
-        <HeroIcon
-          background="bg-gray-300"
-          icon={<QuestionMarkCircleIcon size={40} color={"white"} />}
-          label="decal.app"
-        />
+      <>
+        {/* transaction and instruction details section */}
+        <View className="flex flex-row items-center justify-between">
+          <Text className={"font-semibold text-lg"}>
+            Advanced Transaction Details
+          </Text>
 
-        <HeroTitleSection
-          title={"Transaction Request"}
-          description={"You are being asked to approve a transaction"}
-        />
-
-        {/* simple transaction details */}
-        <List>
-          {/* <ListItem isTopItem={true} title="Network" value={"Solana mainnet"} /> */}
-          <ListItem
-            isTopItem={true}
-            title="Network fee"
-            value={"0.000005 SOL"}
-          />
-          <ListItem title="Fee payer" value={"you"} />
-        </List>
-
-        {false && (
-          <>
-            {/* transaction and instruction details section */}
-            <View>
-              <Text className={"font-semibold text-lg"}>
-                Advanced Transaction Details
-              </Text>
-            </View>
-
-            <View className="flex flex-col">
-              {/* pl-5 space-y-2 bg-red-300 gap-y-3 */}
-              <List>
-                <ListItem
-                  isTopItem={true}
-                  title="#0 - Compute Budget Program"
-                />
-                {/* <ListItem title="Fee payer" value={"you"} /> */}
-                <ListItem
-                  title="Program ID"
-                  value={shortText("Comput...111111")}
-                />
-                {/* <ListItem title="Data" value={"rhdtfhgj"} /> */}
-              </List>
-              <View className="mb-2"></View>
-              <List>
-                <ListItem isTopItem={true} title="#1 - Squads v3" />
-                <ListItem
-                  title="Program ID"
-                  value={shortText("SMPLec...8ZekMu")}
-                />
-                {/* <ListItem title="Signer" value={shortText("ryctvykluiuiykudjfg")} /> */}
-                {/* <ListItem
-                  title="Data"
-                  value={"e7ad315beb18441306000000000102030405"}
-                /> */}
-              </List>
-            </View>
-          </>
-        )}
-
-        {/* button action area */}
-        <View className="flex flex-col gap-3">
-          <Button
-            label="Approve"
-            onPress={() => Alert.alert("approve")}
-            className="bg-blue-500"
-            labelClassName="text-white"
-          />
-          <Button
-            label="Reject"
-            onPress={() => Alert.alert("reject")}
-            className="bg-transparent border-gray-300"
-            labelClassName="text-black text-base"
-            // icon="external-link"
-          />
+          <TouchableOpacity
+            className="p-2"
+            onPress={() => setShowAdvancedDetails((prev) => !prev)}
+          >
+            {showAdvancedDetails ? (
+              <ChevronDoubleUpIcon className="" size={20} color={"white"} />
+            ) : (
+              <ChevronDoubleDownIcon className="" size={20} color={"white"} />
+            )}
+          </TouchableOpacity>
         </View>
+
+        {/* process each of the instructions for display */}
+        {showAdvancedDetails && (
+          <View className="flex flex-col">
+            {transaction.message.compiledInstructions.map((ix, key) => (
+              <InstructionDetails
+                key={key}
+                index={key}
+                ix={ix}
+                programId={simulation.accountAddresses[ix.programIdIndex]}
+              />
+            ))}
+          </View>
+        )}
+      </>
+
+      {/* button action area */}
+      <View className="flex flex-col gap-3">
+        <Button
+          label="Approve"
+          onPress={() => Alert.alert("approve")}
+          className="w-full bg-blue-500"
+          labelClassName="text-white"
+        />
+        <GhostButton
+          label="Reject"
+          onPress={() => Alert.alert("reject")}
+          // className=""
+          labelClassName="text-base"
+          // icon="external-link"
+        />
       </View>
-    </ScrollView>
+    </DefaultLayout>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    // alignItems: "center",
-    // justifyContent: "center",
-    padding: 16,
-    gap: 20,
-  },
-});
