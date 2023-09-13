@@ -8,6 +8,7 @@ import { Button } from "@/components/core/buttons";
 
 import { HeroIcon, HeroTitleSection } from "@/components/ScreenHero";
 import { UserPlusIcon } from "react-native-heroicons/solid";
+import { useAuth } from "@/context/AuthProvider";
 import { useConnection } from "@/context/ConnectionProvider";
 
 import { MinorText, TouchableOpacity } from "@/components/core/Styled";
@@ -21,7 +22,8 @@ import {
 export default function Screen() {
   const router = useRouter();
   const theme = useColorScheme() ?? "light";
-  const { connection, setUserWallet, userWallet } = useConnection();
+  const { connection } = useConnection();
+  const { walletDetails, setWalletDetails } = useAuth();
 
   //
   const [maxAccountsToShow, setMaxAccountsToShow] = useState<number>(0);
@@ -37,8 +39,8 @@ export default function Screen() {
 
       // auto select set the selected user wallet (if one was not already selected)
       // todo: should this always auto select? we could wrap in an `if` block?
-      // if (!userWallet.address) {
-      setUserWallet({
+      // if (!walletDetails.address) {
+      setWalletDetails({
         address: firstAccount.publicKey.toBase58(),
         label: firstAccount.label,
       });

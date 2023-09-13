@@ -7,7 +7,7 @@ import {
   UserWalletDetails,
   getAllUserWalletDetails,
 } from "@/lib/utils/wallet/details";
-import { useConnection } from "@/context/ConnectionProvider";
+import { useAuth } from "@/context/AuthProvider";
 import { shortText } from "@/lib/utils";
 import { Alert } from "react-native";
 
@@ -20,7 +20,7 @@ import { Alert } from "react-native";
 
 export default function Screen() {
   const router = useRouter();
-  const { userWallet, setUserWallet } = useConnection();
+  const { walletDetails, setWalletDetails } = useAuth();
   const [accounts, setAccounts] = useState<UserWalletDetails[]>([]);
 
   useEffect(() => {
@@ -47,7 +47,7 @@ export default function Screen() {
       );
     }
 
-    setUserWallet(record);
+    setWalletDetails(record);
 
     return router.back();
   }
@@ -69,7 +69,7 @@ export default function Screen() {
             label=""
             isTop={id == 0}
             key={id}
-            isChecked={userWallet.address === item.address}
+            isChecked={walletDetails.address === item.address}
             onPress={() => handlePress(item.address)}
           >
             <View className="bg-transparent">

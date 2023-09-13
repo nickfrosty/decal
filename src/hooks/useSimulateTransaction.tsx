@@ -19,7 +19,7 @@ export const useSimulateTransaction = ({
   tx,
 }: SimulateTransactionProps) => {
   console.log("\n\nuseSimulateTransaction");
-  const { connection, userWallet } = useConnection();
+  const { connection } = useConnection();
 
   // define assorted state tracking variables for the data to be returned
   const [estimatedFee, setEstimatedFee] = useState<number>(5_000);

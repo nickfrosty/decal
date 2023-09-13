@@ -1,7 +1,7 @@
 import { Stack } from "expo-router";
 import { StyleSheet } from "react-native";
 import Colors from "@/constants/Colors";
-import { useConnection } from "@/context/ConnectionProvider";
+import { useAuth } from "@/context/AuthProvider";
 import { shortText } from "@/lib/utils";
 
 import EditScreenInfo from "@/components/EditScreenInfo";
@@ -9,14 +9,14 @@ import { Text, View, ScrollView } from "@/components/core/Themed";
 import { GhostLink } from "@/components/core/buttons";
 
 export default function Screen() {
-  const { userWallet } = useConnection();
+  const { walletDetails } = useAuth();
 
   return (
     <ScrollView>
       <Stack.Screen
         options={{
           // comment for better diffs
-          title: userWallet?.label ?? shortText(userWallet.address),
+          title: walletDetails?.label ?? shortText(walletDetails.address),
         }}
       />
 
