@@ -1,13 +1,11 @@
-import { memo, useRef } from "react";
+import { memo } from "react";
 import { Text, View } from "@/components/core/Themed";
 import { ColorSchemeName } from "react-native";
 import Colors from "@/constants/Colors";
 
-import { LAMPORTS_PER_SOL, PublicKey } from "@solana/web3.js";
-
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { TouchableOpacity } from "@/components/core/Styled";
-import { shortText } from "@/lib/utils";
+import { formatLamportsToSol, shortText } from "@/lib/utils";
 import { AccountImportDetails } from "@/lib/utils/wallet/import";
 
 type AccountDetailsItemProps = {
@@ -75,7 +73,7 @@ export const AccountDetailsTextComponent = memo(
             : Colors[colorScheme].minorColor,
         }}
       >
-        {account.balance / LAMPORTS_PER_SOL} SOL
+        {formatLamportsToSol(account.balance)} SOL
       </Text>
     </View>
   ),
