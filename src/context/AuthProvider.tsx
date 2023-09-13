@@ -17,6 +17,7 @@ import {
 } from "react";
 
 type AuthContextState = {
+  isAuthenticated: boolean;
   loaded: boolean;
   walletDetails: UserWalletDetails;
   setWalletDetails: React.Dispatch<React.SetStateAction<UserWalletDetails>>;
@@ -35,11 +36,7 @@ export const AuthProvider: FC<{
   // auto load the desired data on mount
   useEffect(() => {
     AsyncStorage.getItem(STORAGE_KEY.userWallet, (err, data) => {
-      // console.log("data:", data);
-
       if (!!data) setWalletDetails(JSON.parse(data));
-
-      //
       setLoaded(true);
     });
   }, []);
@@ -47,16 +44,21 @@ export const AuthProvider: FC<{
   // auto save the settings when they are changed
   useEffect(() => {
     if (!loaded) return;
-
     AsyncStorage.setItem(STORAGE_KEY.userWallet, JSON.stringify(walletDetails));
   }, [walletDetails]);
 
   // memoize the user's wallet address
   const walletAddress = useMemo(() => {
     if (loaded && !!walletDetails && !!walletDetails?.address) {
-      // console.log("walletAddress set:", walletDetails?.address);
       return new PublicKey(walletDetails.address);
     } else return undefined;
+  }, [walletDetails, loaded]);
+
+  // memoize the user's auth status
+  const isAuthenticated = useMemo(() => {
+    if (loaded && !!walletDetails && !!walletDetails?.address) {
+      return true;
+    } else return false;
   }, [walletDetails, loaded]);
 
   return (
@@ -64,6 +66,7 @@ export const AuthProvider: FC<{
       value={{
         // comment for better diffs
         loaded,
+        isAuthenticated,
         walletDetails,
         setWalletDetails,
         walletAddress,
