@@ -8,10 +8,8 @@ import { useFonts } from "expo-font";
 import { useEffect } from "react";
 import { SplashScreen, Stack } from "expo-router";
 import { useColorScheme } from "react-native";
-import {
-  ConnectionProvider,
-  useConnection,
-} from "@/context/ConnectionProvider";
+import { ConnectionProvider } from "@/context/ConnectionProvider";
+import { AuthProvider, useAuth } from "@/context/AuthProvider";
 
 // import various global libraries
 import "@/styles/global.css";
@@ -41,27 +39,40 @@ export default function RootLayout() {
     if (error) throw error;
   }, [error]);
 
+  if (!loaded) {
+    return null;
+  }
+
+  return (
+    <AuthProvider>
+      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+        <ConnectionProvider>
+          <RootLayoutNav />
+        </ConnectionProvider>
+      </ThemeProvider>
+    </AuthProvider>
+  );
+}
+
+function RootLayoutNav() {
+  const { walletAddress, loaded } = useAuth();
+
   useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync();
     }
   }, [loaded]);
 
-  if (!loaded) {
-    return null;
+  if (!loaded) return null;
+
+  //
+  if (loaded && typeof walletAddress == "undefined") {
+    return (
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="wallet/import" options={{}} />
+      </Stack>
+    );
   }
-
-  return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <ConnectionProvider>
-        <RootLayoutNav />
-      </ConnectionProvider>
-    </ThemeProvider>
-  );
-}
-
-function RootLayoutNav() {
-  const { userWallet } = useConnection();
 
   return (
     <Stack screenOptions={{}}>

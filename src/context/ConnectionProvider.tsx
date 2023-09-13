@@ -3,7 +3,6 @@
  */
 
 import { STORAGE_KEY } from "@/lib/constants";
-import { UserWalletDetails } from "@/lib/utils/wallet/details";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   Connection,
@@ -38,8 +37,6 @@ interface ConnectionContextState {
   connection: Connection;
   settings: NetworkConnectionSettings;
   setSettings: React.Dispatch<React.SetStateAction<NetworkConnectionSettings>>;
-  userWallet: UserWalletDetails;
-  setUserWallet: React.Dispatch<React.SetStateAction<UserWalletDetails>>;
 }
 
 export const ConnectionProvider: FC<{
@@ -48,18 +45,11 @@ export const ConnectionProvider: FC<{
   // track the user's connection settings, and allow updating them
   const [settings, setSettings] =
     useState<NetworkConnectionSettings>(DEFAULT_SETTINGS);
-  const [userWallet, setUserWallet] = useState<UserWalletDetails>({
-    address: "",
-    // label: ""
-  });
 
   // auto load the network connection configuration from local storage
   useEffect(() => {
     AsyncStorage.getItem(STORAGE_KEY.connection).then((data) => {
       if (!!data) setSettings(JSON.parse(data));
-    });
-    AsyncStorage.getItem(STORAGE_KEY.userWallet).then((data) => {
-      if (!!data) setUserWallet(JSON.parse(data));
     });
   }, []);
 
@@ -68,11 +58,6 @@ export const ConnectionProvider: FC<{
     AsyncStorage.setItem(STORAGE_KEY.connection, JSON.stringify(settings));
   }, [settings]);
 
-  // auto save the settings when they are changed
-  useEffect(() => {
-    AsyncStorage.setItem(STORAGE_KEY.userWallet, JSON.stringify(userWallet));
-  }, [userWallet]);
-
   // create a connection to the blockchain
   const connection = useMemo(
     () => new Connection(settings.endpoint, settings.config),
@@ -80,9 +65,7 @@ export const ConnectionProvider: FC<{
   );
 
   return (
-    <ConnectionContext.Provider
-      value={{ connection, settings, setSettings, userWallet, setUserWallet }}
-    >
+    <ConnectionContext.Provider value={{ connection, settings, setSettings }}>
       {children}
     </ConnectionContext.Provider>
   );
