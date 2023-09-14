@@ -76,7 +76,7 @@ export default function Screen() {
       />
 
       <HeroTitleSection
-        title={"Enter your seed phrase"}
+        title={"Enter a seed phrase"}
         description={
           "Import your wallet and accounts by entering your seed phrase below"
         }
