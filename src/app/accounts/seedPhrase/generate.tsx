@@ -19,7 +19,7 @@ import { shortText } from "@/lib/utils";
 import {
   derivePublicAddressFromSeedPhrase,
   generateSeedPhrase,
-} from "@/lib/utils/wallet";
+} from "@/lib/utils/wallet/seedPhrase";
 import { SeedPhraseWordList } from "@/components/wallet/SeedPhrase";
 import { HeroIcon, HeroTitleSection } from "@/components/ScreenHero";
 import { TouchableOpacity, ViewBox } from "@/components/core/Styled";
