@@ -41,9 +41,7 @@ export default function Screen() {
       }
 
       // save the words to the temporary secure storage
-      const didSave = await saveTempSeedPhraseToSecureStore(
-        seedPhrase.join(" ").trim().toLowerCase(),
-      );
+      const didSave = await saveTempSeedPhraseToSecureStore(seedPhrase);
 
       if (didSave) {
         // clear the seed phrase state to prevent words from being saved anywhere insecurely

@@ -4,9 +4,13 @@
 
 import * as base58 from "bs58";
 import { Connection, PublicKey } from "@solana/web3.js";
-import * as SecureStore from "expo-secure-store";
 import { storeSingleKeypair } from ".";
-import { seedPhraseToKeypairs } from "./seedPhrase";
+import {
+  SeedPhraseInput,
+  getSeedPhraseFromSecureStore,
+  saveSeedPhraseToSecureStore,
+  seedPhraseToKeypairs,
+} from "./seedPhrase";
 import { saveUserWalletDetails } from "./details";
 
 const TEMP_SEED_PHRASE_KEY = "TMP_SEED_PHRASE_KEY";
@@ -46,7 +50,8 @@ export type AccountImportDetails = {
  * Including: `publicKey`, `balance`, and derivation account `index`
  */
 export async function getAccountImportDetails(connection: Connection) {
-  const seedPhrase = (await getTempSeedPhraseToSecureStore()) ?? "";
+  const seedPhrase =
+    (await getSeedPhraseFromSecureStore(TEMP_SEED_PHRASE_KEY)) ?? "";
   // console.log("seed phrase:", seedPhrase);
 
   if (!seedPhrase) {
@@ -101,31 +106,12 @@ export async function getAccountImportDetails(connection: Connection) {
 }
 
 /**
- * temporarily store seed phrase words to secure storage for retrieval
+ * wrapper function to work with the temporary seed phrases
  */
-export async function saveTempSeedPhraseToSecureStore(seedPhrase: string) {
-  await SecureStore.setItemAsync(TEMP_SEED_PHRASE_KEY, seedPhrase, {
-    // authenticationPrompt: "?",
-    // keychainService:
-  });
-
-  // verify the payload was actually written correctly to the SecureStore
-  const verify = await getTempSeedPhraseToSecureStore();
-  if (!verify || verify !== seedPhrase)
-    throw "Unable to save to temporary secure storage";
-
-  // finally, we are done!
-  return true;
-}
-
-/**
- * get the temporarily stored seed phrase words from secure storage
- */
-async function getTempSeedPhraseToSecureStore() {
-  return await SecureStore.getItemAsync(TEMP_SEED_PHRASE_KEY, {
-    // authenticationPrompt: "?",
-    // keychainService:
-  });
+export async function saveTempSeedPhraseToSecureStore(
+  seedPhrase: SeedPhraseInput,
+) {
+  return saveSeedPhraseToSecureStore(TEMP_SEED_PHRASE_KEY, seedPhrase, true);
 }
 
 /**
@@ -138,7 +124,8 @@ export async function importAccountsFromSeedPhrase(
 ) {
   // console.log("importAccountsFromSeedPhrase");
 
-  const seedPhrase = (await getTempSeedPhraseToSecureStore()) ?? "";
+  const seedPhrase =
+    (await getSeedPhraseFromSecureStore(TEMP_SEED_PHRASE_KEY)) ?? "";
   // console.log("seed phrase:", seedPhrase);
 
   if (!seedPhrase) {
@@ -182,6 +169,9 @@ export async function importAccountsFromSeedPhrase(
       console.warn(err);
     }
   }
+
+  // clear the temporarily stored seed phase
+  await saveSeedPhraseToSecureStore(TEMP_SEED_PHRASE_KEY, "", true);
 
   // finally, return
   return true;

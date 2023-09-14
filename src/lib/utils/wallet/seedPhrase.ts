@@ -8,6 +8,8 @@ import { derivePath } from "ed25519-hd-key";
 import * as bip39 from "bip39";
 import { DEFAULT_SEED_PHRASE_WORD_COUNT } from "./constants";
 
+export type SeedPhraseInput = string | string[];
+
 /**
  * default configuration settings for the Solana standard derivation path
  *
@@ -38,11 +40,10 @@ export function solanaDerivationPath(accountIndex: number = 0) {
  * derived from the provided `seedPhrase`
  */
 export async function seedPhraseToKeypairs(
-  seedPhrase: string | string[],
+  seedPhrase: SeedPhraseInput,
   MAX_KEYPAIRS_TO_RECOVER: number = 24,
 ) {
-  // allow an array of seed phrase words
-  if (Array.isArray(seedPhrase)) seedPhrase = seedPhrase.join(" ");
+  seedPhrase = formatSeedPhrase(seedPhrase);
 
   // always convert the seed phrase to lower case
   seedPhrase = seedPhrase.trim().toLowerCase();
@@ -69,14 +70,11 @@ export async function seedPhraseToKeypairs(
  * desired account index using the default derivation path
  */
 export async function derivePublicAddressFromSeedPhrase(
-  seedPhrase: string | string[],
+  seedPhrase: SeedPhraseInput,
   accountIndex: number = 0,
 ) {
-  // allow an array of seed phrase words
-  if (Array.isArray(seedPhrase)) seedPhrase = seedPhrase.join(" ");
-
   // convert the seed phrase into a `seed` buffer
-  const seed = await bip39.mnemonicToSeed(seedPhrase);
+  const seed = await bip39.mnemonicToSeed(formatSeedPhrase(seedPhrase));
 
   return Keypair.fromSeed(
     derivePath(solanaDerivationPath(accountIndex), seed.toString("hex")).key,
@@ -93,4 +91,55 @@ export function generateSeedPhrase(
   const strength = 128 * (wordCount / 12);
 
   return bip39.generateMnemonic(strength).split(" ");
+}
+
+/**
+ * format all seed phrases into a standard format
+ */
+export function formatSeedPhrase(seedPhrase: SeedPhraseInput) {
+  // allow an array of seed phrase words
+  if (Array.isArray(seedPhrase)) seedPhrase = seedPhrase.join(" ");
+
+  // always trim and convert to lower case
+  return seedPhrase.toString().trim().toLowerCase();
+}
+
+/**
+ * get a stored seed phrase from secure storage
+ */
+export async function getSeedPhraseFromSecureStore(storageKey: string) {
+  return await SecureStore.getItemAsync(storageKey, {
+    // authenticationPrompt: "?",
+    // keychainService:
+  });
+}
+
+/**
+ * store seed phrase word to secure storage for later retrieval
+ *
+ */
+export async function saveSeedPhraseToSecureStore(
+  storageKey: string,
+  seedPhrase: SeedPhraseInput,
+  allowOverwrite: boolean = false,
+) {
+  const current = await getSeedPhraseFromSecureStore(storageKey);
+
+  if (!allowOverwrite && !!current)
+    throw Error("Not allowed to overwrite existing secure seed phrase");
+
+  seedPhrase = formatSeedPhrase(seedPhrase);
+
+  await SecureStore.setItemAsync(storageKey, seedPhrase, {
+    // authenticationPrompt: "?",
+    // keychainService:
+  });
+
+  // verify the payload was actually written correctly to the SecureStore
+  const verify = await getSeedPhraseFromSecureStore(storageKey);
+  if (!verify || verify !== seedPhrase)
+    throw "Unable to save to temporary secure storage";
+
+  // finally, we are done!
+  return true;
 }
