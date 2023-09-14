@@ -1,4 +1,4 @@
-import { Stack } from "expo-router";
+import { Stack, useRouter } from "expo-router";
 import { Alert } from "react-native";
 import { useState, useEffect, memo, useCallback } from "react";
 import DefaultLayout from "@/components/core/DefaultLayout";
@@ -26,6 +26,7 @@ import { TouchableOpacity, ViewBox } from "@/components/core/Styled";
 import { useAsync } from "react-async-hook";
 
 export default function Screen() {
+  const router = useRouter();
   // generate a random seed phrase words to start
   const [loading, setLoading] = useState(true);
   const [seedPhrase, setSeedPhrase] = useState<string[]>([]);
@@ -119,9 +120,8 @@ export default function Screen() {
 
           <View className="flex flex-col gap-2">
             <Button
-              // href="/accounts/seedPhrase/import"
               label="Continue"
-              onPress={() => Alert.alert("continue")}
+              onPress={() => router.push("/accounts/seedPhrase/import")}
               className="bg-blue-500"
               labelClassName="text-white"
             />
