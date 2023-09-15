@@ -32,7 +32,7 @@ export async function getAllUserWalletDetails(): Promise<UserWalletDetails[]> {
 
   if (!data) return [];
 
-  // parse the secure string as the correct type
+  // parse the non-secure string as the correct type
   return JSON.parse(data) as UserWalletDetails[];
 }
 
