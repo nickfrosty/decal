@@ -10,6 +10,7 @@ import {
   getSeedPhraseFromSecureStore,
   saveSeedPhraseToSecureStore,
   seedPhraseToKeypairs,
+  importSeedPhrase,
 } from "./seedPhrase";
 import { saveUserWalletDetails } from "./details";
 
@@ -138,7 +139,11 @@ export async function importAccountsFromSeedPhrase(
 
   if (toImport.length <= 0) throw Error("No accounts to import found");
 
-  // console.log(toImport);
+  // import the seed phase into its long to secure storage location
+  const accessKey = await importSeedPhrase(seedPhrase);
+
+  // simple counter to track how many accounts were imported
+  let importCounter = 0;
 
   // save each of the desired keys into secure storage
   for (let i = 0; i < toImport.length; i++) {
@@ -163,7 +168,10 @@ export async function importAccountsFromSeedPhrase(
        * this currently makes no attempt to inform the user if the failed account was not actually imported
        */
 
-      console.log(address, "imported");
+      // console.log(address, "imported");
+
+      // increment the counter of course
+      importCounter++;
     } catch (err) {
       console.log(`Unable to import key derived at index ${i}: ${address}`);
       console.warn(err);

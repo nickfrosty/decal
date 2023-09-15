@@ -5,6 +5,7 @@
 import * as SecureStore from "expo-secure-store";
 import { Keypair } from "@solana/web3.js";
 import { derivePath } from "ed25519-hd-key";
+import createHmac from "create-hmac";
 import * as bip39 from "bip39";
 import { DEFAULT_SEED_PHRASE_WORD_COUNT } from "./constants";
 
@@ -137,9 +138,72 @@ export async function saveSeedPhraseToSecureStore(
 
   // verify the payload was actually written correctly to the SecureStore
   const verify = await getSeedPhraseFromSecureStore(storageKey);
-  if (!verify || verify !== seedPhrase)
+  if (verify !== seedPhrase) {
     throw "Unable to save to temporary secure storage";
+  }
 
   // finally, we are done!
   return true;
+}
+
+/**
+ * async storage key used to get the user's secure seed phase details
+ */
+const SEED_PHRASE_DETAILS_KEY = "SEED_PHRASE_DETAILS_KEY";
+
+/**
+ * key value that is used to retrieve this seed phrase from secure storage
+ */
+type SeedPhraseAccessKey = string;
+
+/**
+ * get all of the user's secure seed phrase details
+ */
+export async function getAllSeedPhraseAccessKeys(): Promise<
+  SeedPhraseAccessKey[]
+> {
+  const data = await SecureStore.getItemAsync(SEED_PHRASE_DETAILS_KEY);
+
+  if (!data) return [];
+
+  // parse the secure string as the correct type
+  return JSON.parse(data) as SeedPhraseAccessKey[];
+}
+
+/**
+ * save a seed phase to secure storage and add its access `key` into the secure seed details
+ */
+export async function importSeedPhrase(seedPhrase: SeedPhraseInput) {
+  seedPhrase = formatSeedPhrase(seedPhrase);
+
+  // compute a hash of the seed phrase to ensure it is unique
+  const accessKey = createHmac("sha256", seedPhrase)
+    .update(seedPhrase)
+    .digest("hex");
+
+  // console.log("accessKey", accessKey);
+
+  // actually update the stored data
+  await SecureStore.setItemAsync(accessKey, JSON.stringify(seedPhrase));
+
+  // get the current stored seed phase details
+  const data = await getAllSeedPhraseAccessKeys();
+
+  // determine if the provided seed phrase is already stored or not
+  const existingIndex = data.findIndex((existing) => existing === accessKey);
+
+  // update the existing record, or add a new record all together
+  if (existingIndex >= 0) return true;
+  else data.push(accessKey);
+
+  // todo: there is probably a better way to do the above few lines. but...its fine...
+
+  // actually update the details key
+  await SecureStore.setItemAsync(SEED_PHRASE_DETAILS_KEY, JSON.stringify(data));
+
+  // verify the new data was correctly saved
+  const verify = await getAllSeedPhraseAccessKeys();
+  if (JSON.stringify(verify) === JSON.stringify(data)) {
+    return accessKey;
+  } else return false;
 }
