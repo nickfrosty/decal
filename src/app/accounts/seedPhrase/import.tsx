@@ -48,7 +48,7 @@ export default function Screen() {
         setSeedPhrase(new Array(seedPhrase.length).fill(""));
 
         // note: we use replace to prevent the user from going back to the seed phrase
-        return router.replace("/accounts/seedPhrase/selectAccounts");
+        return router.push("/accounts/seedPhrase/selectAccounts");
       } else throw Error("Unable to securely save your seed phrase");
     } catch (err) {
       console.warn(err);

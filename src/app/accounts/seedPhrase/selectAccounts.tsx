@@ -1,4 +1,4 @@
-import { Stack, useRouter } from "expo-router";
+import { Stack, useNavigation, useRouter } from "expo-router";
 import { Alert, useColorScheme } from "react-native";
 import { useState, useEffect, useCallback, memo } from "react";
 import DefaultLayout from "@/components/core/DefaultLayout";
@@ -18,8 +18,10 @@ import {
   getAccountImportDetails,
   importAccountsFromSeedPhrase,
 } from "@/lib/utils/wallet/import";
+import { StackActions } from "@react-navigation/native";
 
 export default function Screen() {
+  const navigation = useNavigation();
   const router = useRouter();
   const theme = useColorScheme() ?? "light";
   const { connection } = useConnection();
@@ -49,7 +51,9 @@ export default function Screen() {
       // }
       // todo: allow the user to select which auto selects?
 
-      return router.push("/");
+      // note: we replace to prevent the user from accessing this
+      navigation.dispatch(StackActions.popToTop());
+      return router.replace("/");
     } else Alert.alert("Unable to import accounts");
   }, [accounts, walletDetails, setWalletDetails]);
 
