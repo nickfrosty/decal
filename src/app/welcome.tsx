@@ -16,7 +16,7 @@ export default function Screen() {
         }}
       />
 
-      <View className="flex flex-col items-center justify-center gap-2 my-8 place-self-center">
+      <View className="flex flex-col gap-2 my-8 place-self-center">
         <LinkButton
           href="/accounts/seedPhrase/generate"
           className="bg-blue-500"
