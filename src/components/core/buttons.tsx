@@ -17,17 +17,22 @@ type ButtonGenericProps = {
   labelClassName?: string;
 };
 
-type LinkProps = ButtonGenericProps & DefaultLinkProps<string>;
+export type LinkProps = ButtonGenericProps & DefaultLinkProps<string>;
 
-type ButtonProps = ButtonGenericProps & TouchableOpacityProps;
+export type ButtonProps = ButtonGenericProps & TouchableOpacityProps;
 
 /**
- * Internal formatting for the button text and icon
+ * todo: add support for the label and button styles for manually defining themed styled via the props
  */
-const ButtonInternals = memo(
-  ({ icon, label, labelClassName }: ButtonGenericProps) => {
+export const Button = memo(
+  ({ icon, label, labelClassName, ...props }: ButtonProps) => {
     return (
-      <>
+      <TouchableOpacity
+        className={
+          "flex flex-row items-center justify-center px-4 py-3 space-x-2 text-center rounded-full"
+        }
+        {...props}
+      >
         {!!label && (
           <Text className={clsx("text-lg", labelClassName)}>{label}</Text>
         )}
@@ -40,58 +45,16 @@ const ButtonInternals = memo(
             color={useThemeColor("iconColor")}
           />
         )}
-      </>
+      </TouchableOpacity>
     );
   },
 );
 
-/**
- * todo: add support for the label and button styles for manually defining themed styled via the props
- */
-export function Button({ icon, label, labelClassName, ...props }: ButtonProps) {
+export function GhostButton(props: ButtonProps) {
   return (
-    <TouchableOpacity
-      className={
-        "flex flex-row items-center justify-center w-full px-4 py-3 space-x-2 text-center rounded-full"
-      }
+    <Button
       {...props}
-    >
-      <ButtonInternals
-        icon={icon}
-        label={label}
-        labelClassName={labelClassName}
-      />
-    </TouchableOpacity>
-  );
-}
-
-export function LinkButton({
-  icon,
-  label,
-  labelClassName,
-  ...props
-}: LinkProps) {
-  return (
-    <Link
-      className={
-        "flex flex-row items-center justify-center w-full px-4 py-3 space-x-2 text-center rounded-full"
-      }
-      {...props}
-    >
-      <ButtonInternals
-        icon={icon}
-        label={label}
-        labelClassName={labelClassName}
-      />
-    </Link>
-  );
-}
-
-export function GhostLink(props: LinkProps) {
-  return (
-    <LinkButton
-      {...props}
-      className="bg-transparent"
+      className="bg-transparent border"
       style={[
         props.style,
         {
@@ -102,9 +65,22 @@ export function GhostLink(props: LinkProps) {
   );
 }
 
-export function GhostButton(props: ButtonProps) {
+export function LinkButton({
+  icon,
+  label,
+  labelClassName,
+  ...props
+}: LinkProps) {
   return (
-    <Button
+    <Link {...props} asChild>
+      <Button icon={icon} label={label} labelClassName={labelClassName} />
+    </Link>
+  );
+}
+
+export function GhostLink(props: LinkProps) {
+  return (
+    <LinkButton
       {...props}
       className="bg-transparent border"
       style={[
