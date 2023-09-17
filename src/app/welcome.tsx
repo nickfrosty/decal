@@ -3,7 +3,7 @@ import DefaultLayout from "@/components/core/DefaultLayout";
 
 import EditScreenInfo from "@/components/EditScreenInfo";
 import { View } from "@/components/core/Themed";
-import { GhostLink } from "@/components/core/buttons";
+import { GhostLink, LinkButton } from "@/components/core/buttons";
 
 export default function Screen() {
   return (
@@ -16,12 +16,18 @@ export default function Screen() {
         }}
       />
 
-      <View className="flex flex-row items-center justify-center my-8">
-        <GhostLink href="/accounts/seedPhrase/import" label="Import" />
-        <GhostLink href="/accounts/seedPhrase/generate" label="Generate" />
+      <View className="flex flex-col items-center justify-center gap-2 my-8 place-self-center">
+        <LinkButton
+          href="/accounts/seedPhrase/generate"
+          className="bg-blue-500"
+          label="Generate new seed phrase"
+        />
+        <LinkButton
+          href="/accounts/seedPhrase/import"
+          className=""
+          label="Import seed phrase"
+        />
       </View>
-
-      <EditScreenInfo path="app/welcome.tsx" />
     </DefaultLayout>
   );
 }
