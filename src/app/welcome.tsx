@@ -1,7 +1,6 @@
 import { Stack } from "expo-router";
 import DefaultLayout from "@/components/core/DefaultLayout";
 
-import EditScreenInfo from "@/components/EditScreenInfo";
 import { View } from "@/components/core/Themed";
 import { GhostLink, LinkButton } from "@/components/core/buttons";
 
@@ -22,7 +21,7 @@ export default function Screen() {
           className="bg-blue-500"
           label="Generate new seed phrase"
         />
-        <LinkButton
+        <GhostLink
           href="/accounts/seedPhrase/import"
           className=""
           label="Import seed phrase"
