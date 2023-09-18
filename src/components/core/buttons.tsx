@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   TouchableOpacityProps,
 } from "@/components/core/Styled";
-import { memo } from "react";
+import { forwardRef, memo } from "react";
 
 type ButtonGenericProps = {
   icon?: React.ComponentProps<typeof FontAwesome>["name"];
@@ -24,10 +24,11 @@ export type ButtonProps = ButtonGenericProps & TouchableOpacityProps;
 /**
  * todo: add support for the label and button styles for manually defining themed styled via the props
  */
-export const Button = memo(
-  ({ icon, label, labelClassName, ...props }: ButtonProps) => {
+export const Button = forwardRef(
+  ({ icon, label, labelClassName, children, ...props }: ButtonProps, ref) => {
     return (
       <TouchableOpacity
+        ref={ref as any}
         className={
           "flex flex-row items-center justify-center px-4 py-3 space-x-2 text-center rounded-full"
         }
@@ -50,45 +51,39 @@ export const Button = memo(
   },
 );
 
-export function GhostButton(props: ButtonProps) {
-  return (
-    <Button
-      {...props}
-      className="bg-transparent border"
-      style={[
-        props.style,
-        {
-          borderColor: useThemeColor("borderColor"),
-        },
-      ]}
-    />
-  );
-}
+export const GhostButton = (props: ButtonProps) => (
+  <Button
+    {...props}
+    className="bg-transparent border"
+    style={[
+      props.style,
+      {
+        borderColor: useThemeColor("borderColor"),
+      },
+    ]}
+  />
+);
 
-export function LinkButton({
+export const LinkButton = ({
   icon,
   label,
   labelClassName,
   ...props
-}: LinkProps) {
-  return (
-    <Link {...props} asChild>
-      <Button icon={icon} label={label} labelClassName={labelClassName} />
-    </Link>
-  );
-}
+}: LinkProps) => (
+  <Link {...props} asChild>
+    <Button icon={icon} label={label} labelClassName={labelClassName} />
+  </Link>
+);
 
-export function GhostLink(props: LinkProps) {
-  return (
-    <LinkButton
-      {...props}
-      className="bg-transparent border"
-      style={[
-        props.style,
-        {
-          borderColor: useThemeColor("borderColor"),
-        },
-      ]}
-    />
-  );
-}
+export const GhostLink = (props: LinkProps) => (
+  <LinkButton
+    {...props}
+    className="bg-transparent border"
+    style={[
+      props.style,
+      {
+        borderColor: useThemeColor("borderColor"),
+      },
+    ]}
+  />
+);
