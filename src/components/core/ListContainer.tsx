@@ -11,7 +11,7 @@ type BaseProps = { label: string; isTop?: boolean };
 export function ListContainer(props: ViewProps) {
   return (
     <View
-      className="border rounded-lg"
+      className="bg-transparent border rounded-lg"
       style={{
         borderColor: useThemeColor("borderColor"),
       }}
@@ -90,6 +90,6 @@ export function ListCheckBox({
         // borderColor: Colors[colorScheme].borderColor,
       }}
       {...props}
-    ></BouncyCheckbox>
+    />
   );
 }
