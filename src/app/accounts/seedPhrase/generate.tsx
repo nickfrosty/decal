@@ -1,5 +1,5 @@
 import { Stack, useRouter } from "expo-router";
-import { Alert } from "react-native";
+import { Alert, useColorScheme } from "react-native";
 import { useState, useEffect, memo, useCallback } from "react";
 import DefaultLayout from "@/components/core/DefaultLayout";
 
@@ -24,9 +24,12 @@ import { SeedPhraseWordList } from "@/components/wallet/SeedPhrase";
 import { HeroIcon, HeroTitleSection } from "@/components/ScreenHero";
 import { TouchableOpacity, ViewBox } from "@/components/core/Styled";
 import { useAsync } from "react-async-hook";
+import Colors from "@/constants/Colors";
 
 export default function Screen() {
+  const theme = useColorScheme() ?? "light";
   const router = useRouter();
+
   // generate a random seed phrase words to start
   const [loading, setLoading] = useState(true);
   const [seedPhrase, setSeedPhrase] = useState<string[]>([]);
@@ -71,7 +74,7 @@ export default function Screen() {
             <TouchableOpacity onPress={() => generate()}>
               <ArrowPathIcon
                 style={MasterStyles.icon}
-                color={useThemeColor("iconColor")}
+                color={Colors[theme].iconColor}
               />
             </TouchableOpacity>
           ),
