@@ -58,7 +58,7 @@ export default function TabLayout() {
                 <TouchableOpacity>
                   <QrCodeIcon
                     color={useThemeColor("iconColor")}
-                    style={MasterStyles.icon}
+                    style={[MasterStyles.icon, MasterStyles.headingIcon]}
                   />
                 </TouchableOpacity>
               </Link>

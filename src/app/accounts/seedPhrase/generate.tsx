@@ -73,7 +73,7 @@ export default function Screen() {
           headerRight: () => (
             <TouchableOpacity onPress={() => generate()}>
               <ArrowPathIcon
-                style={MasterStyles.icon}
+                style={[MasterStyles.icon, MasterStyles.headingIcon]}
                 color={Colors[theme].iconColor}
               />
             </TouchableOpacity>

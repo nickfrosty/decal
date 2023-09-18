@@ -79,6 +79,8 @@ export const MasterStyles = StyleSheet.create({
     width: 28,
     margin: 3,
     resizeMode: "contain",
+  },
+  headingIcon: {
     marginHorizontal: 12,
   },
   container: {

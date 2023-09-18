@@ -86,7 +86,7 @@ export function SettingsToggleButton({}) {
       <TouchableOpacity>
         <Bars3Icon
           color={useThemeColor("iconColor")}
-          style={MasterStyles.icon}
+          style={[MasterStyles.icon, MasterStyles.headingIcon]}
         />
       </TouchableOpacity>
     </Link>
