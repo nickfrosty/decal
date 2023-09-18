@@ -42,9 +42,17 @@ export default function Screen() {
         darkColor="rgba(255,255,255,0.1)"
       />
 
-      <View className="flex flex-row items-center justify-center my-8">
-        <GhostLink href="/accounts/seedPhrase/import" label="Import" />
-        <GhostLink href="/accounts/seedPhrase/generate" label="Generate" />
+      <View className="flex flex-row items-center justify-center gap-2 my-8">
+        <GhostLink
+          href="/accounts/seedPhrase/import"
+          label="Import"
+          className="rounded-lg"
+        />
+        <GhostLink
+          href="/accounts/seedPhrase/generate"
+          label="Generate"
+          className="rounded-lg"
+        />
       </View>
 
       <EditScreenInfo path="app/(wallet)/index.tsx" />
@@ -54,9 +62,19 @@ export default function Screen() {
 
 function PrimaryActionButtons() {
   return (
-    <View className="flex flex-row items-center justify-center">
-      <GhostLink href="/send" label="Send" icon="arrow-up" />
-      <GhostLink href="/request" label="Request" icon="arrow-down" />
+    <View className="flex flex-row items-center justify-center gap-2">
+      <GhostLink
+        href="/send"
+        label="Send"
+        icon="arrow-up"
+        className="rounded-lg"
+      />
+      <GhostLink
+        href="/request"
+        label="Request"
+        icon="arrow-down"
+        className="rounded-lg"
+      />
       {/* <GhostLink href="/swap" label="Swap" icon="arrows-h" /> */}
     </View>
   );
