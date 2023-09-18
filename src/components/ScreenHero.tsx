@@ -43,7 +43,7 @@ export function HeroTitleSection({
   description,
 }: ScreenTitleSectionProps) {
   return (
-    <View className="items-center gap-3" style={style}>
+    <View className="items-center gap-3 bg-transparent" style={style}>
       <Text className={"font-semibold text-2xl text-center"}>{title}</Text>
 
       {!!description && (
@@ -88,7 +88,7 @@ type HeroIconDetails = {
 
 export function HeroIcon({ label, background, icon }: HeroIconDetails) {
   return (
-    <View className="flex items-center justify-center gap-2 my-4">
+    <View className="flex items-center justify-center gap-2 my-4 bg-transparent">
       <View
         className={clsx(
           "items-center justify-center w-20 h-20 align-middle rounded-full",
