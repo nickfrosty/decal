@@ -1,30 +1,43 @@
 import { Stack } from "expo-router";
 import DefaultLayout from "@/components/core/DefaultLayout";
 import { MinorText } from "@/components/core/Styled";
-import { ListContainer, ListItemLink } from "@/components/core/ListContainer";
+import {
+  ListContainer,
+  ListItem,
+  ListItemLink,
+} from "@/components/core/ListContainer";
+import { useRef } from "react";
+import { BottomSheetModal } from "@gorhom/bottom-sheet";
+import { SelectWalletModal } from "@/components/modals/SelectWalletModal";
 
 export default function Screen() {
+  const selectWalletModalRef = useRef<BottomSheetModal>(null);
+
   return (
-    <DefaultLayout>
-      <Stack.Screen
-        options={{
-          headerShown: true,
-          title: "Settings",
-        }}
-      />
+    <>
+      <SelectWalletModal modalRef={selectWalletModalRef} />
 
-      <MinorText className="text-base text-center">
-        Developer Settings
-      </MinorText>
-
-      <ListContainer>
-        <ListItemLink
-          isTop={true}
-          label="Change wallet"
-          href={"/settings/changeWallet"}
+      <DefaultLayout>
+        <Stack.Screen
+          options={{
+            headerShown: true,
+            title: "Settings",
+          }}
         />
-        <ListItemLink label="Change wallet" href={"/settings/changeWallet"} />
-      </ListContainer>
-    </DefaultLayout>
+
+        <MinorText className="text-base text-center">
+          Developer Settings
+        </MinorText>
+
+        <ListContainer>
+          <ListItem
+            isTop={true}
+            onPress={() => selectWalletModalRef.current?.present()}
+            label="Change wallet"
+          />
+          <ListItemLink label="Change wallet" href={"/settings/changeWallet"} />
+        </ListContainer>
+      </DefaultLayout>
+    </>
   );
 }
