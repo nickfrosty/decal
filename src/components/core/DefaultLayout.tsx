@@ -1,18 +1,14 @@
-import { StyleSheet } from "react-native";
-import { View, ScrollView, ViewProps } from "@/components/core/Themed";
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-    gap: 20,
-  },
-});
+import {
+  View,
+  ScrollView,
+  ViewProps,
+  MasterStyles,
+} from "@/components/core/Themed";
 
 export default function DefaultLayout(props: ViewProps) {
   return (
     <ScrollView>
-      <View style={[styles.container, props.style]} {...props} />
+      <View style={[MasterStyles.container, props.style]} {...props} />
     </ScrollView>
   );
 }

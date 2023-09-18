@@ -1,6 +1,7 @@
 import { Stack, useRouter } from "expo-router";
+import DefaultLayout from "@/components/core/DefaultLayout";
 import { MinorText } from "@/components/core/Styled";
-import { ScrollView, MasterStyles, Text, View } from "@/components/core/Themed";
+import { Text, View } from "@/components/core/Themed";
 import { ListContainer, ListCheckBox } from "@/components/core/ListContainer";
 import { useEffect, useState } from "react";
 import {
@@ -53,7 +54,7 @@ export default function Screen() {
   }
 
   return (
-    <ScrollView style={MasterStyles.container}>
+    <DefaultLayout>
       <Stack.Screen
         options={{
           headerShown: true,
@@ -78,6 +79,6 @@ export default function Screen() {
           </ListCheckBox>
         ))}
       </ListContainer>
-    </ScrollView>
+    </DefaultLayout>
   );
 }

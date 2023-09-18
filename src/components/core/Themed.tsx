@@ -85,7 +85,7 @@ export const MasterStyles = StyleSheet.create({
     flex: 1,
     // alignItems: "center",
     padding: 16,
-    gap: 10,
+    gap: 20,
     flexGrow: 1,
   },
 });

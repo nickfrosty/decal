@@ -1,11 +1,11 @@
 import { Stack } from "expo-router";
+import DefaultLayout from "@/components/core/DefaultLayout";
 import { MinorText } from "@/components/core/Styled";
-import { ScrollView, MasterStyles } from "@/components/core/Themed";
 import { ListContainer, ListItemLink } from "@/components/core/ListContainer";
 
 export default function Screen() {
   return (
-    <ScrollView style={MasterStyles.container}>
+    <DefaultLayout>
       <Stack.Screen
         options={{
           headerShown: true,
@@ -25,6 +25,6 @@ export default function Screen() {
         />
         <ListItemLink label="Change wallet" href={"/settings/changeWallet"} />
       </ListContainer>
-    </ScrollView>
+    </DefaultLayout>
   );
 }
