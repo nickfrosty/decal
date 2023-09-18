@@ -26,7 +26,7 @@ export type BottomModalProps = {
   modalRef: RefObject<BottomSheetModal>;
   // title?: string;
   snapPoints?: Array<string>;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 };
 
 export const DEFAULT_MODAL_SNAP_POINTS = ["45%", "80%"];
