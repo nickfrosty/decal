@@ -1,12 +1,12 @@
 import { Stack } from "expo-router";
-import { StyleSheet } from "react-native";
+import DefaultLayout from "@/components/core/DefaultLayout";
 
-import { ScrollView, Text, View } from "@/components/core/Themed";
+import { Text, View } from "@/components/core/Themed";
 import { GhostLink } from "@/components/core/buttons";
 
 export default function Screen() {
   return (
-    <ScrollView>
+    <DefaultLayout>
       <View className={"flex-1 p-4 gap-8 items-center"}>
         <Stack.Screen options={{ title: "Dev Screen" }} />
 
@@ -14,7 +14,7 @@ export default function Screen() {
           Transaction pages
         </Text>
 
-        <View className="flex flex-row items-center justify-center">
+        <View className="flex flex-row items-center justify-center gap-2">
           <GhostLink href="/transaction/details" label="Details" />
           <GhostLink href="/transaction/signMessage" label="Sign" />
           <GhostLink href="/transaction/requestApproval" label="Request" />
@@ -35,23 +35,6 @@ export default function Screen() {
           {/* <GhostLink href="/transaction/request" label="Request" /> */}
         </View>
       </View>
-    </ScrollView>
+    </DefaultLayout>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
-  },
-});
