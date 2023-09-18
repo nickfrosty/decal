@@ -15,9 +15,10 @@ import {
 
 import { TouchableOpacity } from "@/components/core/Styled";
 import { XMarkIcon } from "react-native-heroicons/solid";
+import clsx from "clsx";
 
 export type ModalHeaderProps = {
-  title: string;
+  title?: string;
   description?: string;
   handleCloseModal: any;
 };
@@ -82,8 +83,13 @@ export const ModalHeader = ({
 }: ModalHeaderProps) => {
   return (
     <View className="mb-5 bg-transparent">
-      <View className="flex flex-row items-center justify-between w-full bg-transparent">
-        <Text className={"font-semibold text-xl"}>{title}</Text>
+      <View
+        className={clsx(
+          "flex flex-row items-center bg-transparent",
+          !!title ? "justify-between w-full" : "right-0 justify-end absolute",
+        )}
+      >
+        {!!title && <Text className={"font-semibold text-xl"}>{title}</Text>}
 
         <TouchableOpacity onPress={handleCloseModal} className="">
           <XMarkIcon
