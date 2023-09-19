@@ -23,13 +23,13 @@ import React, {
 // set the default settings to load for the user before they
 const DEFAULT_SETTINGS: NetworkConnectionSettings = {
   cluster: "devnet",
-  endpoint: clusterApiUrl("devnet"),
+  // endpoint: clusterApiUrl("devnet"),
   config: { commitment: "confirmed" },
 };
 
 type NetworkConnectionSettings = {
   cluster: Cluster;
-  endpoint: string;
+  endpoint?: string;
   config: ConnectionConfig;
 };
 
@@ -60,7 +60,11 @@ export const ConnectionProvider: FC<{
 
   // create a connection to the blockchain
   const connection = useMemo(
-    () => new Connection(settings.endpoint, settings.config),
+    () =>
+      new Connection(
+        settings?.endpoint || clusterApiUrl(settings.cluster),
+        settings.config,
+      ),
     [settings],
   );
 
