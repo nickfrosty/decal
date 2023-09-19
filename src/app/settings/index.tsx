@@ -10,8 +10,12 @@ import { useRef } from "react";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { SelectWalletModal } from "@/components/modals/SelectWalletModal";
 import { SelectNetworkModal } from "@/components/modals/SelectNetworkModal";
+import { Text, View } from "@/components/core/Themed";
+import { useAuth } from "@/context/AuthProvider";
+import { shortText } from "@/lib/utils";
 
 export default function Screen() {
+  const { walletAddress } = useAuth();
   const selectWalletModalRef = useRef<BottomSheetModal>(null);
   const selectNetworkModalRef = useRef<BottomSheetModal>(null);
 
@@ -28,9 +32,22 @@ export default function Screen() {
           }}
         />
 
-        <MinorText className="text-base text-center">
-          Developer Settings
-        </MinorText>
+        <View className="p-4 bg-transparent border border-white rounded-lg">
+          <View className="flex flex-row items-center space-x-4 overflow-hidden bg-transparent">
+            <View className="flex-shrink-0 w-20 h-20 bg-transparent bg-gray-500 rounded-full"></View>
+            <View className="w-full bg-transparent whitespace-nowrap overflow-clip">
+              <Text className="w-full text-lg overflow-ellipsis overflow-clip">
+                Profile Name
+              </Text>
+              <MinorText className="text-base">@username</MinorText>
+              <MinorText className="text-base">
+                {shortText(walletAddress?.toBase58() || "[err]")}
+              </MinorText>
+            </View>
+          </View>
+        </View>
+
+        <MinorText className="text-base text-center">Settings</MinorText>
 
         <ListContainer>
           <ListItem
