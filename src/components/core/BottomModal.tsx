@@ -68,6 +68,7 @@ export const BottomModal = ({
           // backgroundColor: "red",
           flex: 1,
           paddingHorizontal: 12,
+          rowGap: 8,
         }}
       >
         {children}
