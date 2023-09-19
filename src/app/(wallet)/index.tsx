@@ -4,7 +4,6 @@ import Colors from "@/constants/Colors";
 import { useAuth } from "@/context/AuthProvider";
 import { shortText } from "@/lib/utils";
 
-import EditScreenInfo from "@/components/EditScreenInfo";
 import { Text, View, ScrollView } from "@/components/core/Themed";
 import { GhostLink } from "@/components/core/buttons";
 
@@ -54,8 +53,6 @@ export default function Screen() {
           className="rounded-lg"
         />
       </View>
-
-      <EditScreenInfo path="app/(wallet)/index.tsx" />
     </ScrollView>
   );
 }
