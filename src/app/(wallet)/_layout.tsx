@@ -79,6 +79,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="dev"
         options={{
+          // href: null,
           tabBarIcon: ({ color }) => (
             <CodeBracketIcon size={30} color={color} />
           ),
@@ -87,6 +88,9 @@ export default function TabLayout() {
       <Tabs.Screen
         name="feed"
         options={{
+          href: null,
+          // hide in production
+          // href: !!process.env?.EXPO_PUBLIC_DEBUG_MODE ? null : undefined,
           tabBarIcon: ({ color }) => (
             <RectangleStackIcon size={30} color={color} />
           ),
@@ -95,12 +99,18 @@ export default function TabLayout() {
       <Tabs.Screen
         name="assets"
         options={{
+          href: null,
+          // hide in production
+          // href: !!process.env?.EXPO_PUBLIC_DEBUG_MODE ? null : undefined,
           tabBarIcon: ({ color }) => <PhotoIcon size={30} color={color} />,
         }}
       />
       <Tabs.Screen
         name="inbox"
         options={{
+          href: null,
+          // hide in production
+          // href: !!process.env?.EXPO_PUBLIC_DEBUG_MODE ? null : undefined,
           tabBarIcon: ({ color }) => (
             <EnvelopeIcon size={30} color={color} />
             // <TabBarIcon name="envelope" color={color} />
