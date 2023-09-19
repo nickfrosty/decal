@@ -95,7 +95,7 @@ export default function TransactionRequestScreen() {
    * - account state changes?
    */
 
-  console.log("accountChanges:", simulation.accountChanges);
+  // console.log("accountChanges:", simulation.accountChanges);
 
   return (
     <DefaultLayout>
