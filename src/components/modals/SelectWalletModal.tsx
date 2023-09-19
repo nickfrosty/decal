@@ -53,7 +53,7 @@ export const SelectWalletModal = ({ modalRef }: BottomModalProps) => {
   );
 
   return (
-    <BottomModal modalRef={modalRef}>
+    <BottomModal modalRef={modalRef} snapPoints={[]} enableDynamicSizing={true}>
       <ModalHeader
         handleCloseModal={closeModal}
         title="Select a wallet"
