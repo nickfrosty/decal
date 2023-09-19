@@ -52,7 +52,12 @@ export const TransactionModal = ({
   }, [transaction]);
 
   return (
-    <BottomModal modalRef={modalRef} snapPoints={["90%"]}>
+    <BottomModal
+      modalRef={modalRef}
+      // not: this is intentionally blank to make the modal size fit to the content by default
+      snapPoints={[]}
+      enableDynamicSizing={true}
+    >
       <ModalHeader
         handleCloseModal={closeModal}
         // title={"Transaction Request"}
