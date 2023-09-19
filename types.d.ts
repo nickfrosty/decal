@@ -23,6 +23,7 @@ declare namespace NodeJS {
     /**
      * Assorted variables used for testing and debugging only
      */
+    EXPO_PUBLIC_DEBUG_MODE?: string;
     EXPO_PUBLIC_DEBUG_SEED_PHRASE?: string;
     EXPO_PUBLIC_DEBUG_SEED_WORD?: string;
   }
