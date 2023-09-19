@@ -15,6 +15,7 @@ export default function Screen() {
         <Stack.Screen
           // name=""
           options={{
+            headerShown: true,
             title: "Search",
             // headerTitle: () => (
             //   <TextInput

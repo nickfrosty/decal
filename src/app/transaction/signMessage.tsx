@@ -14,6 +14,7 @@ export default function Screen() {
         <Stack.Screen
           options={{
             // comment for better diffs
+            headerShown: true,
             title: "Request to Sign a Message",
           }}
         />

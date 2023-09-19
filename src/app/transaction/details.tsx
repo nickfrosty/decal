@@ -15,6 +15,7 @@ export default function Screen() {
         <Stack.Screen
           options={{
             // comment for better diffs
+            headerShown: true,
             title: "Transaction Details",
           }}
         />
