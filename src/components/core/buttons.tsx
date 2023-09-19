@@ -30,12 +30,12 @@ export const Button = forwardRef(
       <TouchableOpacity
         ref={ref as any}
         className={
-          "flex flex-row items-center justify-center px-4 py-3 space-x-2 text-center rounded-full"
+          "flex flex-row items-center justify-center px-4 py-2 space-x-2 text-center rounded-full"
         }
         {...props}
       >
         {!!label && (
-          <Text className={clsx("text-lg", labelClassName)}>{label}</Text>
+          <Text className={clsx("text-base", labelClassName)}>{label}</Text>
         )}
 
         {!!icon && (
