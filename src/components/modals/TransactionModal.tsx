@@ -54,7 +54,7 @@ export const TransactionModal = ({
   return (
     <BottomModal
       modalRef={modalRef}
-      // not: this is intentionally blank to make the modal size fit to the content by default
+      // note: this is intentionally blank to make the modal size fit to the content by default
       snapPoints={[]}
       enableDynamicSizing={true}
     >
