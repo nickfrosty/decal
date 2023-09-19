@@ -9,12 +9,15 @@ import {
 import { useRef } from "react";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { SelectWalletModal } from "@/components/modals/SelectWalletModal";
+import { SelectNetworkModal } from "@/components/modals/SelectNetworkModal";
 
 export default function Screen() {
   const selectWalletModalRef = useRef<BottomSheetModal>(null);
+  const selectNetworkModalRef = useRef<BottomSheetModal>(null);
 
   return (
     <>
+      <SelectNetworkModal modalRef={selectNetworkModalRef} />
       <SelectWalletModal modalRef={selectWalletModalRef} />
 
       <DefaultLayout>
@@ -35,7 +38,10 @@ export default function Screen() {
             onPress={() => selectWalletModalRef.current?.present()}
             label="Change wallet"
           />
-          <ListItemLink label="Change wallet" href={"/settings/changeWallet"} />
+          <ListItem
+            onPress={() => selectNetworkModalRef.current?.present()}
+            label="Change network"
+          />
         </ListContainer>
       </DefaultLayout>
     </>
