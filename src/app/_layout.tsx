@@ -11,6 +11,7 @@ import { useColorScheme } from "react-native";
 import { ConnectionProvider } from "@/context/ConnectionProvider";
 import { AuthProvider } from "@/context/AuthProvider";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
+import { TransactionProvider } from "@/context/TransactionProvider";
 
 // import various global libraries
 import "@/styles/global.css";
@@ -52,16 +53,18 @@ export default function RootLayout() {
   return (
     <AuthProvider>
       <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-        <ConnectionProvider>
-          <BottomSheetModalProvider>
-            <Stack
-              screenOptions={{
-                // comment for better diffs
-                headerShown: false,
-              }}
-            />
-          </BottomSheetModalProvider>
-        </ConnectionProvider>
+        <BottomSheetModalProvider>
+          <ConnectionProvider>
+            <TransactionProvider>
+              <Stack
+                screenOptions={{
+                  // comment for better diffs
+                  headerShown: false,
+                }}
+              />
+            </TransactionProvider>
+          </ConnectionProvider>
+        </BottomSheetModalProvider>
       </ThemeProvider>
     </AuthProvider>
   );
