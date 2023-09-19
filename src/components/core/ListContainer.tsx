@@ -12,9 +12,12 @@ export function ListContainer(props: ViewProps) {
   return (
     <View
       className="bg-transparent border rounded-lg"
-      style={{
-        borderColor: useThemeColor("borderColor"),
-      }}
+      style={[
+        props.style,
+        {
+          borderColor: useThemeColor("borderColor"),
+        },
+      ]}
     >
       {props.children}
     </View>
