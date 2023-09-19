@@ -24,8 +24,8 @@ export type ModalHeaderProps = {
 };
 
 export type BottomModalProps = {
+  enableDynamicSizing?: boolean;
   modalRef: RefObject<BottomSheetModal>;
-  // title?: string;
   snapPoints?: Array<string>;
   children?: React.ReactNode;
 };
@@ -33,6 +33,7 @@ export type BottomModalProps = {
 export const DEFAULT_MODAL_SNAP_POINTS = ["45%", "80%"];
 
 export const BottomModal = ({
+  enableDynamicSizing,
   children,
   modalRef,
   snapPoints = DEFAULT_MODAL_SNAP_POINTS,
@@ -41,6 +42,7 @@ export const BottomModal = ({
 
   return (
     <BottomSheetModal
+      enableDynamicSizing={enableDynamicSizing}
       ref={modalRef}
       snapPoints={snapPoints}
       // onChange={handleSheetChanges}
@@ -68,6 +70,7 @@ export const BottomModal = ({
           // backgroundColor: "red",
           paddingHorizontal: 12,
           rowGap: 8,
+          paddingBottom: 24,
         }}
       >
         {children}
