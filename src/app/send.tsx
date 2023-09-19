@@ -12,8 +12,11 @@ export default function Screen() {
     <ScrollView>
       <View style={styles.container}>
         <Stack.Screen
-          // name=""
-          options={{ title: "Send" }}
+          options={{
+            // comment for better diffs
+            headerShown: true,
+            title: "Send",
+          }}
         />
 
         <InputAmount />

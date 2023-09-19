@@ -33,8 +33,11 @@ export default function RequestScreen() {
     <ScrollView>
       <View style={styles.container}>
         <Stack.Screen
-          // name=""
-          options={{ title: "Request Payment" }}
+          options={{
+            // comment for better diffs
+            headerShown: true,
+            title: "Request Payment",
+          }}
         />
 
         <TouchableOpacity
