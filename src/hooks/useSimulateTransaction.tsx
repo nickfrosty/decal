@@ -138,5 +138,7 @@ export const useSimulateTransaction = ({
     error,
     accountChanges,
     accountAddresses,
+    // we return this since the `transaction` gets mutated with an updated blockhash
+    transaction,
   };
 };
