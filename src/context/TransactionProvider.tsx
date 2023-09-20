@@ -41,7 +41,7 @@ export const TransactionProvider: FC<{
       // open the modal
       modalRef.current?.present();
     },
-    [modalRef],
+    [modalRef, transaction, setTransaction],
   );
 
   /**
