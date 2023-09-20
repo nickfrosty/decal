@@ -142,7 +142,7 @@ export const TransactionModal = ({
         />
         <GhostButton
           label="Reject"
-          onPress={() => Alert.alert("reject")}
+          onPress={closeModal}
           // className=""
           labelClassName="text-base"
           // icon="external-link"
