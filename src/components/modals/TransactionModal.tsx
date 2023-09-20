@@ -100,7 +100,7 @@ export const TransactionModal = ({
       {/* transaction and instruction details section */}
       <TouchableOpacity
         onPress={() => setShowAdvancedDetails((prev) => !prev)}
-        className="flex flex-row items-center justify-between mt-6 bg-transparent"
+        className="flex flex-row items-center justify-between my-4 bg-transparent"
       >
         <MinorText className={"w-full text-center text-base"}>
           Toggle advanced details
@@ -133,7 +133,7 @@ export const TransactionModal = ({
       )}
 
       {/* button action area */}
-      <View className="flex flex-col gap-3 my-4 bg-transparent">
+      <View className="flex flex-col my-4 bg-transparent gap-y-3">
         <Button
           label="Approve"
           onPress={() => Alert.alert("approve")}
