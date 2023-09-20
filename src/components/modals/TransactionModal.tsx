@@ -20,6 +20,7 @@ import {
   ChevronDoubleUpIcon,
 } from "react-native-heroicons/solid";
 import { InstructionDetails } from "@/components/transactions/InstructionDetails";
+import { useAuth } from "@/context/AuthProvider";
 
 type ModalProps = BottomModalProps & {
   transaction: VersionedTransaction | null;
@@ -31,6 +32,8 @@ export const TransactionModal = ({
   transaction,
   simulation,
 }: ModalProps) => {
+  const { walletAddress } = useAuth();
+
   /**
    * Callback function to close the modal
    */
@@ -44,11 +47,8 @@ export const TransactionModal = ({
   // memoize a nice label for the fee payer
   const feePayerLabel = useMemo(() => {
     const addr = simulation?.accountAddresses[0] || "[err]";
-
-    // todo: this
-    // if (addr === wallet.toBase58()) return "you";
-    // else
-    return shortText(addr);
+    if (addr === walletAddress?.toBase58()) return "you";
+    else return shortText(addr);
   }, [transaction]);
 
   return (
